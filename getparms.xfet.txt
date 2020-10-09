@@ -1,0 +1,794 @@
+#----------------------------------------------------------------------------
+# TestFeature Examples Bgn [file: getparms.xfet.txt] [getparms ver. 1.0.4] [Max:99]
+#----------------------------------------------------------------------------
+# example 1 : Pure option in any order
+getparms.sh -ccs -~ 'func -i -j -k # more info' -k -i -j
+valid[0]: func=0  : SUCCESS
+valid[1]: _i=1
+valid[1]: _j=1
+valid[1]: _k=1
+#----------------------------------------------------------------------------
+# example 2 : Option any order req|opt
+getparms.sh  -~ 'func -j {-i}' -j
+func=0  : SUCCESS
+_j=1
+#----------------------------------------------------------------------------
+# example 3 : Ind parm be in any order
+getparms.sh -ccs -~ 'func -i=iprm -j=jprm -k=kprm # more info' -k kval -i ival -j jval
+valid[0]: func=0  : SUCCESS
+valid[1]: _i=1
+valid[1]: iprm="ival"
+valid[1]: _j=1
+valid[1]: jprm="jval"
+valid[1]: _k=1
+valid[1]: kprm="kval"
+#----------------------------------------------------------------------------
+# example 4 : O/P names collide: -a _a
+getparms.sh -crs -on -~ 'func -d-m# -a _a a --arg-parse parm' -a -d-m-0.03 "got it";
+ 0:- valid[0]: func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 5 : O/P names collide: -a  a
+getparms.sh -crs -on -~ 'func -d-m# -a _a a --arg-parse parm' -a -d-m-0.03 "got it"
+ 0:- valid[0]: func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 6 : Check begprm opt & req
+getparms.sh -ccs -~ 'func {prm1} prm2 -i -j -k # more info' val1 -k -i -j
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: _j=1
+valid[1]: _k=1
+#----------------------------------------------------------------------------
+# example 7 : Check endprm opt & req
+getparms.sh -ccs -~ 'func -i -j -k {prm1} prm2 # more info' -k -i -j val1
+valid[0]: func=0  : SUCCESS
+valid[1]: _i=1
+valid[1]: _j=1
+valid[1]: _k=1
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+#----------------------------------------------------------------------------
+# example 8 : Check endprm opt & req
+getparms.sh -ccs -~ 'func -i -j -k {prm1} prm2 # more info' val1 -k -i -j
+valid[0]: func=0  : SUCCESS
+valid[1]: _i=1
+valid[1]: _j=1
+valid[1]: _k=1
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+#----------------------------------------------------------------------------
+# example 9 : Check begprm req & opt
+getparms.sh -ccs -~ 'func prm1 {prm2} -i -j -k # more info' val1 -k -i -j
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+empty[0]: prm2=""
+valid[1]: _i=1
+valid[1]: _j=1
+valid[1]: _k=1
+#----------------------------------------------------------------------------
+# example 10: Check begprm opt & req
+getparms.sh -ccs -~ 'func {prm1} prm2 -i -j -k # more info' val1 val2 -k -i -j
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: prm2="val2"
+valid[1]: _i=1
+valid[1]: _j=1
+valid[1]: _k=1
+#----------------------------------------------------------------------------
+# example 11: Check endprm opt & req
+getparms.sh -ccs -~ 'func {prm1} prm2 # more info' val1
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+#----------------------------------------------------------------------------
+# example 12: Check endprm opt & req
+getparms.sh -ccs -~ 'func -i {-j} {prm1} prm2 # more info' -i val1
+valid[0]: func=0  : SUCCESS
+valid[1]: _i=1
+empty[0]: _j=0
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+#----------------------------------------------------------------------------
+# example 13: ShortHandIndParm: bare
+getparms.sh  -~ 'func -d= ' -d=
+func=0  : SUCCESS
+_d=""
+#----------------------------------------------------------------------------
+# example 14: ShortHandIndParm: plus
+getparms.sh  -~ 'func -d= ' -d+
+func=0  : SUCCESS
+_d=+
+#----------------------------------------------------------------------------
+# example 15: ShortHandIndParm: less
+getparms.sh  -~ 'func -d= ' -d-
+func=0  : SUCCESS
+_d=-
+#----------------------------------------------------------------------------
+# example 16: ShortHandIndParm: +num
+getparms.sh  -~ 'func -d= ' -d=+10
+func=0  : SUCCESS
+_d=+10
+#----------------------------------------------------------------------------
+# example 17: ShortHandIndParm: -num
+getparms.sh  -~ 'func -d= ' -d-2
+func=0  : SUCCESS
+_d=-2
+#----------------------------------------------------------------------------
+# example 18: ShortHandIndParm: ints
+getparms.sh  -~ 'func -d= ' -d8,10,12
+func=0  : SUCCESS
+_d=8,10,12
+#----------------------------------------------------------------------------
+# example 19: ShortHandIndParm: nums,
+getparms.sh  -~ 'func -d= ' -d=8.5,10.1
+func=0  : SUCCESS
+_d=8.5,10.1
+#----------------------------------------------------------------------------
+# example 20: ShortHandIndParm: range
+getparms.sh  -~ 'func -d= ' -d1-100
+func=0  : SUCCESS
+_d=1-100
+#----------------------------------------------------------------------------
+# example 21: ShortHandIndParm: -rang
+getparms.sh  -~ 'func -d= ' -d=-10--1
+func=0  : SUCCESS
+_d=-10--1
+#----------------------------------------------------------------------------
+# example 22: Ind Parm: single parm.
+getparms.sh  -~ 'func <-f file>' -f=val1
+func=0  : SUCCESS
+_f=1
+file="val1"
+#----------------------------------------------------------------------------
+# example 23: Ind Parm: value spaces
+getparms.sh  -~ 'func <-f|--file file1 file2>' -f="val 1" val2
+func=0  : SUCCESS
+_f=1
+file1="val 1"
+file2="val2"
+#----------------------------------------------------------------------------
+# example 24: Multi-indp vals spaces
+getparms.sh -ccs -~ 'func <-f parm1 parm2 parm3> # more info' -f "all 1" "all 2" "all 3"
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: parm1="all 1"
+valid[1]: parm2="all 2"
+valid[1]: parm3="all 3"
+#----------------------------------------------------------------------------
+# example 25: Multi-indp with dtype
+getparms.sh -ccs -~ 'func <-f parm1 parm2 parm3~sw-> # more info' -f "All In" "" "all on"
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: parm1="All In"
+valid[1]: parm2=""
+valid[1]: parm3="all on"
+#----------------------------------------------------------------------------
+# example 26: Multi-indp & mid-dtype
+getparms.sh -ccs -~ 'func <-f parm1 parm2~sw- parm3> # more info' -f "" "all in" "All On"
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: parm1=""
+valid[1]: parm2="all in"
+valid[1]: parm3="All On"
+#----------------------------------------------------------------------------
+# example 27: OR'ed indp: 1st option
+getparms.sh -ccs -~ 'func <-f|--files ifile tfile ofile> # more info' -f in.txt tmp.txt out.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+empty[0]: __files=0
+valid[1]: ifile="in.txt"
+valid[1]: tfile="tmp.txt"
+valid[1]: ofile="out.txt"
+#----------------------------------------------------------------------------
+# example 28: OR'ed indp: 2nd option
+getparms.sh -ccs -~ 'func <-f|--files ifile tfile ofile> # more info' --files in.txt tmp.txt out.txt
+valid[0]: func=0  : SUCCESS
+empty[0]: _f=0
+valid[1]: __files=1
+valid[1]: ifile="in.txt"
+valid[1]: tfile="tmp.txt"
+valid[1]: ofile="out.txt"
+#----------------------------------------------------------------------------
+# example 29: OSIP with a parameter
+getparms.sh  -~ 'func -f=file' -f=val1
+func=0  : SUCCESS
+_f=1
+file="val1"
+#----------------------------------------------------------------------------
+# example 30: OSIP spaces in value
+getparms.sh  -~ 'func <-f|--file=file parm>' -f="val 1" val2
+func=0  : SUCCESS
+_f=1
+file="val 1"
+parm="val2"
+#----------------------------------------------------------------------------
+# example 31: OSIP Spec, Indp Cmdl
+getparms.sh -ci -~ 'func <-i|n|-f=file>' -f val2
+func=0  : SUCCESS
+_f=1
+file="val2"
+#----------------------------------------------------------------------------
+# example 32: Multi-ind parm value
+getparms.sh -ccs -~ 'func -f=file # more info' -f f1 -f f2
+valid[0]: func=5  : TOOMANY
+multi[2]: _f=2
+multi[2]: file="f1=f2"
+#----------------------------------------------------------------------------
+# example 33: Mulitiple OR'ed OSIP
+getparms.sh  -~ 'func <-f=in1|-g=in2>' -g=val2
+func=0  : SUCCESS
+_g=1
+in2="val2"
+#----------------------------------------------------------------------------
+# example 34: 'more' parms spaces
+getparms.sh -ccrs -~ 'func parm ... # more info' "val 1" "val 2" "val 3"
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: parm_1="val 1"
+ 2:1 valid[1]: parm_2="val 2"
+ 3:2 valid[1]: parm_3="val 3"
+#----------------------------------------------------------------------------
+# example 35: 'more' parms with 1
+getparms.sh -ccs -~ 'func parm ... # more info' val1
+valid[0]: func=0  : SUCCESS
+valid[1]: parm_1="val1"
+#----------------------------------------------------------------------------
+# example 36: 'more' parms with 3
+getparms.sh -ccrs -~ 'func parm ... # more info' val1 val2 val3
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: parm_1="val1"
+ 2:1 valid[1]: parm_2="val2"
+ 3:2 valid[1]: parm_3="val3"
+#----------------------------------------------------------------------------
+# example 37: 'more' ind prm with 1
+getparms.sh -ccs -~ 'func [-f parm ...] # more info' -f val1
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: parm_1="val1"
+#----------------------------------------------------------------------------
+# example 38: 'more' ind prm with 3
+getparms.sh -ccrs -~ 'func <-f parm ...> # more info' -f val1 val2 val3
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: _f=1
+ 2:1 valid[1]: parm_1="val1"
+ 3:2 valid[1]: parm_2="val2"
+ 4:3 valid[1]: parm_3="val3"
+#----------------------------------------------------------------------------
+# example 39: multi-indp with dtype
+getparms.sh -ccs -~ 'func (-f parm1 parm2 parm3) # more info' -f a b c
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: parm1="a"
+valid[1]: parm2="b"
+valid[1]: parm3="c"
+#----------------------------------------------------------------------------
+# example 40: Alt. name Pure Option
+getparms.sh -cl -~ 'func -a:arg-parse ' -a
+func=0  : SUCCESS
+arg_parse=1
+#----------------------------------------------------------------------------
+# example 41: Alt. name OR Pure Opt
+getparms.sh  -~ 'func {--num=:alt|-n:num=} ' -n3
+func=0  : SUCCESS
+num=3
+#----------------------------------------------------------------------------
+# example 42: Alt. name OR Pure Opt
+getparms.sh  -~ 'func {--num=:alt|-n:num=} ' --num=5
+func=0  : SUCCESS
+alt=5
+#----------------------------------------------------------------------------
+# example 43: Alt. name SHIP before
+getparms.sh  -~ 'func -d:name=' -d4-5
+func=0  : SUCCESS
+name=4-5
+#----------------------------------------------------------------------------
+# example 44: Alt. name SHIP after
+getparms.sh  -~ 'func --d=:name' --d6-
+func=0  : SUCCESS
+name=6-
+#----------------------------------------------------------------------------
+# example 45: Alt. name Indp Option
+getparms.sh  -~ 'func {-f:altname miles}' -f 5
+func=0  : SUCCESS
+altname=1
+miles="5"
+#----------------------------------------------------------------------------
+# example 46: Alt. name OSIP Option
+getparms.sh  -~ 'func {-f:altname=miles}' -f 5
+func=0  : SUCCESS
+altname=1
+miles="5"
+#----------------------------------------------------------------------------
+# example 48: OR'ed group & req parm
+getparms.sh -crs -~ 'func m|-i|--input post # more info' -i val
+ 0:- valid[0]: func=0  : SUCCESS
+ 2:0 valid[1]: _i=1
+ 4:1 valid[1]: post="val"
+#----------------------------------------------------------------------------
+# example 49: OR'ed group & opt parm
+getparms.sh -crs -~ 'func m|-i|--input {post} # more info' mval
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: m="mval"
+#----------------------------------------------------------------------------
+# example 50: OR'ed group opt & parm
+getparms.sh -crs -~ 'func m|-i|--input {post} # more info' -i pval
+ 0:- valid[0]: func=0  : SUCCESS
+ 2:0 valid[1]: _i=1
+ 4:1 valid[1]: post="pval"
+#----------------------------------------------------------------------------
+# example 51: OR'ed group parm+parm
+getparms.sh -crs -~ 'func m|-i|--input {post} # more info' mval pval
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: m="mval"
+ 4:1 valid[1]: post="pval"
+#----------------------------------------------------------------------------
+# example 52: OR'ed group & another
+getparms.sh -crs -~ 'func m|-i|--input n|-j|--junk post # more info' -i -j val
+ 0:- valid[0]: func=0  : SUCCESS
+ 2:0 valid[1]: _i=1
+ 5:1 valid[1]: _j=1
+ 7:2 valid[1]: post="val"
+#----------------------------------------------------------------------------
+# example 53: OR'ed group with OSIP
+getparms.sh -ccs -~ 'func -f=parm1|m|-a # more info' -f "val1"
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: parm1="val1"
+empty[0]: m=""
+empty[0]: _a=0
+#----------------------------------------------------------------------------
+# example 54: Mixed group & pos. parm
+getparms.sh -ccbhrs -~ 'func {n|-f|--file=prm1}' nval
+SpecLine: func {n|-f|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: n       ""            1:01|[mix][prm]
+ 2 optn[01]: _f      "-f"          4:01=[osi][opt]
+ 3 optn[01]: __file  "--file"      4:02=[osi][opt]
+ 4 optn[01]: prm1    ""            4:03=[osi][prm]
+RxdInput: 1: nval 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: n="nval"
+ 2:- empty[0]: _f=0
+ 3:- empty[0]: __file=0
+ 4:- empty[0]: prm1=""
+#----------------------------------------------------------------------------
+# example 55: Mixed group & pos. parm
+getparms.sh -ccbhrs -~ 'func {-f|--file=prm1|n}' nval
+SpecLine: func {-f|--file=prm1|n}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          3:01=[osi][opt]
+ 2 optn[01]: __file  "--file"      3:02=[osi][opt]
+ 3 optn[01]: prm1    ""            3:03=[osi][prm]
+ 4 optn[01]: n       ""            1:04|[mix][prm]
+RxdInput: 1: nval 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: _f=0
+ 2:- empty[0]: __file=0
+ 3:- empty[0]: prm1=""
+ 4:0 valid[1]: n="nval"
+#----------------------------------------------------------------------------
+# example 56: Mixed group & long indp
+getparms.sh -ccbhrs -~ 'func {n|-f|--file=prm1}' --file=val1
+SpecLine: func {n|-f|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: n       ""            1:01|[mix][prm]
+ 2 optn[01]: _f      "-f"          4:01=[osi][opt]
+ 3 optn[01]: __file  "--file"      4:02=[osi][opt]
+ 4 optn[01]: prm1    ""            4:03=[osi][prm]
+RxdInput: 1: --file=val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: n=""
+ 2:- empty[0]: _f=0
+ 3:0 valid[1]: __file=1
+ 4:0 valid[1]: prm1="val1"
+#----------------------------------------------------------------------------
+# example 57: Mixed group & long OSIP
+getparms.sh -ccbhrs -~ 'func {n|-f|--file=prm1}' --file val1
+SpecLine: func {n|-f|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: n       ""            1:01|[mix][prm]
+ 2 optn[01]: _f      "-f"          4:01=[osi][opt]
+ 3 optn[01]: __file  "--file"      4:02=[osi][opt]
+ 4 optn[01]: prm1    ""            4:03=[osi][prm]
+RxdInput: 2: --file val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: n=""
+ 2:- empty[0]: _f=0
+ 3:0 valid[1]: __file=1
+ 4:1 valid[1]: prm1="val1"
+#----------------------------------------------------------------------------
+# example 58: Mixed group & bad option
+getparms.sh -ccbhrs -~ 'func {-f|--file=prm1|n}' -f
+SpecLine: func {-f|--file=prm1|n}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          3:01=[osi][opt]
+ 2 optn[01]: __file  "--file"      3:02=[osi][opt]
+ 3 optn[01]: prm1    ""            3:03=[osi][prm]
+ 4 optn[01]: n       ""            1:04|[mix][prm]
+RxdInput: 1: -f 
+ 0:- valid[0]: func=2  : UNFOUND
+ 1:0 valid[1]: _f=1
+ 2:- empty[0]: __file=0
+ 3:- empty[0]: prm1=""
+ 4:- empty[0]: n=""
+#----------------------------------------------------------------------------
+# example 59: Mixed group & short indp
+getparms.sh -ccbhrs -~ 'func {n|-f|--file=prm1}' -f val1
+SpecLine: func {n|-f|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: n       ""            1:01|[mix][prm]
+ 2 optn[01]: _f      "-f"          4:01=[osi][opt]
+ 3 optn[01]: __file  "--file"      4:02=[osi][opt]
+ 4 optn[01]: prm1    ""            4:03=[osi][prm]
+RxdInput: 2: -f val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: n=""
+ 2:0 valid[1]: _f=1
+ 3:- empty[0]: __file=0
+ 4:1 valid[1]: prm1="val1"
+#----------------------------------------------------------------------------
+# example 60: Mixed group & short OSIP
+getparms.sh -ccbhrs -~ 'func {n|-f|--file=prm1}' -f=val1
+SpecLine: func {n|-f|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: n       ""            1:01|[mix][prm]
+ 2 optn[01]: _f      "-f"          4:01=[osi][opt]
+ 3 optn[01]: __file  "--file"      4:02=[osi][opt]
+ 4 optn[01]: prm1    ""            4:03=[osi][prm]
+RxdInput: 1: -f=val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: n=""
+ 2:0 valid[1]: _f=1
+ 3:- empty[0]: __file=0
+ 4:0 valid[1]: prm1="val1"
+#----------------------------------------------------------------------------
+# example 61: Mixed group & short OSIP end pos prm
+getparms.sh -ccbhrs -~ 'func {-f|--file=prm1|n}' -f=val1
+SpecLine: func {-f|--file=prm1|n}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          3:01=[osi][opt]
+ 2 optn[01]: __file  "--file"      3:02=[osi][opt]
+ 3 optn[01]: prm1    ""            3:03=[osi][prm]
+ 4 optn[01]: n       ""            1:04|[mix][prm]
+RxdInput: 1: -f=val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: _f=1
+ 2:- empty[0]: __file=0
+ 3:0 valid[1]: prm1="val1"
+ 4:- empty[0]: n=""
+#----------------------------------------------------------------------------
+# example 62: Mixed group & short indp end pos prm
+getparms.sh -ccbhrs -~ 'func {-f|--file=prm1|n}' -f val1
+SpecLine: func {-f|--file=prm1|n}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          3:01=[osi][opt]
+ 2 optn[01]: __file  "--file"      3:02=[osi][opt]
+ 3 optn[01]: prm1    ""            3:03=[osi][prm]
+ 4 optn[01]: n       ""            1:04|[mix][prm]
+RxdInput: 2: -f val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: _f=1
+ 2:- empty[0]: __file=0
+ 3:1 valid[1]: prm1="val1"
+ 4:- empty[0]: n=""
+#----------------------------------------------------------------------------
+# example 63: Mixed group & long OSIP  end pos prm
+getparms.sh -ccbhrs -~ 'func {-f|--file=prm1|n}' --file=val1
+SpecLine: func {-f|--file=prm1|n}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          3:01=[osi][opt]
+ 2 optn[01]: __file  "--file"      3:02=[osi][opt]
+ 3 optn[01]: prm1    ""            3:03=[osi][prm]
+ 4 optn[01]: n       ""            1:04|[mix][prm]
+RxdInput: 1: --file=val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: _f=0
+ 2:0 valid[1]: __file=1
+ 3:0 valid[1]: prm1="val1"
+ 4:- empty[0]: n=""
+#----------------------------------------------------------------------------
+# example 64: Mixed group & long indp  end pos prm
+getparms.sh -ccbhrs -~ 'func {-f|--file=prm1|n}' --file val1
+SpecLine: func {-f|--file=prm1|n}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          3:01=[osi][opt]
+ 2 optn[01]: __file  "--file"      3:02=[osi][opt]
+ 3 optn[01]: prm1    ""            3:03=[osi][prm]
+ 4 optn[01]: n       ""            1:04|[mix][prm]
+RxdInput: 2: --file val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: _f=0
+ 2:0 valid[1]: __file=1
+ 3:1 valid[1]: prm1="val1"
+ 4:- empty[0]: n=""
+#----------------------------------------------------------------------------
+# example 65: Mixed group & long OSIP  mid pos prm
+getparms.sh -ccbhrs -~ 'func {-f|n|--file=prm1}' --file=val1
+SpecLine: func {-f|n|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          1:01|[mix][opt]
+ 2 optn[01]: n       ""            1:02|[mix][prm]
+ 3 optn[01]: __file  "--file"      4:01=[osi][opt]
+ 4 optn[01]: prm1    ""            4:02=[osi][prm]
+RxdInput: 1: --file=val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: _f=0
+ 2:- empty[0]: n=""
+ 3:0 valid[1]: __file=1
+ 4:0 valid[1]: prm1="val1"
+#----------------------------------------------------------------------------
+# example 66: Mixed group & long indp  mid pos prm
+getparms.sh -ccbhrs -~ 'func {-f|n|--file=prm1}' --file val1
+SpecLine: func {-f|n|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          1:01|[mix][opt]
+ 2 optn[01]: n       ""            1:02|[mix][prm]
+ 3 optn[01]: __file  "--file"      4:01=[osi][opt]
+ 4 optn[01]: prm1    ""            4:02=[osi][prm]
+RxdInput: 2: --file val1 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: _f=0
+ 2:- empty[0]: n=""
+ 3:0 valid[1]: __file=1
+ 4:1 valid[1]: prm1="val1"
+#----------------------------------------------------------------------------
+# example 67: Mixed group & pure opts  mid pos prm
+getparms.sh -ccbhrs -~ 'func {-f|n|--file=prm1}' -f
+SpecLine: func {-f|n|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          1:01|[mix][opt]
+ 2 optn[01]: n       ""            1:02|[mix][prm]
+ 3 optn[01]: __file  "--file"      4:01=[osi][opt]
+ 4 optn[01]: prm1    ""            4:02=[osi][prm]
+RxdInput: 1: -f 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: _f=1
+ 2:- empty[0]: n=""
+ 3:- empty[0]: __file=0
+ 4:- empty[0]: prm1=""
+#----------------------------------------------------------------------------
+# example 68: Mixed group & pos. parm  mid pos prm
+getparms.sh -ccbhrs -~ 'func {-f|n|--file=prm1}' nval
+SpecLine: func {-f|n|--file=prm1}
+ 0 optn[00]: func    "-h|--help"        [hlp][hlp]
+ 1 optn[01]: _f      "-f"          1:01|[mix][opt]
+ 2 optn[01]: n       ""            1:02|[mix][prm]
+ 3 optn[01]: __file  "--file"      4:01=[osi][opt]
+ 4 optn[01]: prm1    ""            4:02=[osi][prm]
+RxdInput: 1: nval 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:- empty[0]: _f=0
+ 2:0 valid[1]: n="nval"
+ 3:- empty[0]: __file=0
+ 4:- empty[0]: prm1=""
+#----------------------------------------------------------------------------
+# example 69: Option Combos: ignore single letters
+getparms.sh  -~ 'func {-i -n -in} # ignore single letters' -in
+func=0  : SUCCESS
+_in=1
+#----------------------------------------------------------------------------
+# example 70: Option Combos: disable 1 letter combo
+getparms.sh -co -~ 'func {-i -n} # disable 1 letter combo' -in
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 71: Option Combos: single letter all opts
+getparms.sh  -~ 'func -i {-j} -k # single letter combos all' -kij
+func=0  : SUCCESS
+_i=1
+_j=1
+_k=1
+#----------------------------------------------------------------------------
+# example 72: Option Combos: single letter reqd|opt
+getparms.sh  -~ 'func -i -j {-k} # single letter combos reqd' -ji
+func=0  : SUCCESS
+_i=1
+_j=1
+#----------------------------------------------------------------------------
+# example 73: Option Combos: single letter part|all
+getparms.sh  -~ 'func {-i -ij -n} # single letter combos part' -in
+func=0  : SUCCESS
+_i=1
+_n=1
+#----------------------------------------------------------------------------
+# example 74: Option Combos: single letter end space
+getparms.sh  -~ 'func <-i -n > # trailing space' -in
+func=0  : SUCCESS
+_i=1
+_n=1
+#----------------------------------------------------------------------------
+# example 77: Option Combos: double letter combo
+getparms.sh  -~ 'func -oa {-ob}' -oba
+func=0  : SUCCESS
+_oa=1
+_ob=1
+#----------------------------------------------------------------------------
+# example 78: Option Combos: double letter both
+getparms.sh  -~ 'func -oa {-ob}' -ob -oa
+func=0  : SUCCESS
+_oa=1
+_ob=1
+#----------------------------------------------------------------------------
+# example 79: Option Combos: double letter one
+getparms.sh  -~ 'func -oa {-ob}' -oa
+func=0  : SUCCESS
+_oa=1
+#----------------------------------------------------------------------------
+# example 80: Option Combos: ignores 2 letters
+getparms.sh  -~ 'func {-in -it -int} # ignore double letters' -int
+func=0  : SUCCESS
+_int=1
+#----------------------------------------------------------------------------
+# example 81: Option Combos: disable 2 letters
+getparms.sh -cm -~ 'func {-in -it} # disable 2 letter combos' -int
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 82: Check Spaces:  normal indp
+getparms.sh -ccbhrs -~ 'func <  -i -n  > # check end spaces' -in
+SpecLine: func <  -i -n  >
+ 0 optn[00]: func  "-h|--help"        [hlp][hlp]
+ 1 reqd[01]: _i    "-i"               [opt][opt]
+ 2 reqd[01]: _n    "-n"               [opt][opt]
+RxdInput: 1: -in 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: _i=1
+ 2:0 valid[1]: _n=1
+#----------------------------------------------------------------------------
+# example 83: Dequote input: pos. parm
+getparms.sh -ccs -on -~ 'func parm # more info' "val1"
+valid[0]: func=0  : SUCCESS
+valid[1]: parm="val1"
+#----------------------------------------------------------------------------
+# example 84: Dequote input: ind. parm
+getparms.sh -ccs -on -~ 'func {-f indp} # more info' -f "val1"
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: indp="val1"
+#----------------------------------------------------------------------------
+# example 85: Dequote input: OSIP type
+getparms.sh -ccs -on -~ 'func -f=indp # more info' -f="val1"
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: indp="val1"
+#----------------------------------------------------------------------------
+# example 86: End Options ends options
+getparms.sh -ccs -on -~ 'func -a -- parm # more info' -- -a
+valid[0]: func=0  : SUCCESS
+empty[0]: _a=0
+valid[1]: __=1
+valid[1]: parm="-a"
+#----------------------------------------------------------------------------
+# example 87: End Options ends options
+getparms.sh -ccs -on -~ 'func {-f indp} -- prm1 prm2 # more' -- -f val1
+valid[0]: func=0  : SUCCESS
+empty[0]: _f=0
+empty[0]: indp=""
+valid[1]: __=1
+valid[1]: prm1="-f"
+valid[1]: prm2="val1"
+#----------------------------------------------------------------------------
+# example 88: Option & SHIP: get optn
+getparms.sh  -~ 'func --m-p-h=|-d ' -d
+func=0  : SUCCESS
+_d=1
+#----------------------------------------------------------------------------
+# example 89: Option & SHIP: get SHIP
+getparms.sh  -~ 'func -d=|--m-p-h= ' --m-p-h0-100
+func=0  : SUCCESS
+__m_p_h=0-100
+#----------------------------------------------------------------------------
+# example 90: Short+Long SHIP: get long
+getparms.sh  -~ 'func -d=|--m-p-h= ' --m-p-h-10.5--1.8
+func=0  : SUCCESS
+__m_p_h=-10.5--1.8
+#----------------------------------------------------------------------------
+# example 91: Short+Long SHIP: get short
+getparms.sh  -~ 'func -d=|--m-p-h= ' -d0-100
+func=0  : SUCCESS
+_d=0-100
+#----------------------------------------------------------------------------
+# example 92: Combined case: singlecombo
+getparms.sh -on -ccs -~ 'func <file_txt~sj-@~".txt"> -v:vrb|m~s-|--verb -i {-j} (-m ind_parm) -e <-f|--files ifile tfile ofile> {--} <param1~i+> [param2~sw- param3] # more info' file.txt happy -ji --files in.txt tmp.txt out.txt 12 "lower" "miXed"
+valid[0]: func=0  : SUCCESS
+valid[1]: file_txt="file.txt"
+empty[0]: vrb=0
+valid[1]: m="happy"
+empty[0]: __verb=0
+valid[1]: _i=1
+valid[1]: _j=1
+empty[0]: _m=0
+empty[0]: ind_parm=""
+empty[0]: _e=0
+empty[0]: _f=0
+valid[1]: __files=1
+valid[1]: ifile="in.txt"
+valid[1]: tfile="tmp.txt"
+valid[1]: ofile="out.txt"
+empty[0]: __=0
+valid[1]: param1=12
+valid[1]: param2="lower"
+valid[1]: param3="miXed"
+#----------------------------------------------------------------------------
+# example 93: Combined case: multi-combo
+getparms.sh -crs -on -~ 'func <file_txt~sj+-%~".Txt"> -v:verb|m~h|--verb {-in} {-io} -i {-j} [-m=ind_parm] -e <-f|--files ifile tfile ofile> {--} <param1~ip> [param2 param3~sw-] # info' file.txt 0x3A  -ji -ion -e --files in.txt tmp.txt out.txt 12 "all In" "all on"
+ 0:-  valid[0]: func=0  : SUCCESS
+ 1:0  valid[1]: file_txt="file.txt"
+ 3:1  valid[1]: m=0x3A
+ 5:3  valid[1]: _in=1
+ 6:3  valid[1]: _io=1
+ 7:2  valid[1]: _i=1
+ 8:2  valid[1]: _j=1
+11:4  valid[1]: _e=1
+13:5  valid[1]: __files=1
+14:6  valid[1]: ifile="in.txt"
+15:7  valid[1]: tfile="tmp.txt"
+16:8  valid[1]: ofile="out.txt"
+18:9  valid[1]: param1=12
+19:10 valid[1]: param2="all In"
+20:11 valid[1]: param3="all on"
+#----------------------------------------------------------------------------
+# example 94: Combined case: hex OR parm
+getparms.sh -chrsw -~ 'func <file_txt~s%~\.txt> -v:verb|m~h|--verb {-in} {-io} -i {-j} [-m ind_parm] -e <-f|--files ifile tfile ofile> {--} <param1~ip> [param2 param3~sw-] ' file.txt 0x48 -ion -j -e --files in.txt tmp.txt out.txt -i 12 "all in"
+ 0:-  valid[0]: func=0  : SUCCESS
+ 1:0  valid[1]: file_txt="file.txt"
+ 3:1  valid[1]: m=0x48
+ 5:2  valid[1]: _in=1
+ 6:2  valid[1]: _io=1
+ 7:9  valid[1]: _i=1
+ 8:3  valid[1]: _j=1
+11:4  valid[1]: _e=1
+13:5  valid[1]: __files=1
+14:6  valid[1]: ifile="in.txt"
+15:7  valid[1]: tfile="tmp.txt"
+16:8  valid[1]: ofile="out.txt"
+18:10 valid[1]: param1=12
+19:11 valid[1]: param2="all in"
+#----------------------------------------------------------------------------
+# example 95: Long Help & line continued
+getparms.sh -crs -on -~ 'func <file_txt~s@~.txt> -v:verb|m~v-|--verb -i {-j} [-m=ind_parm] \
+-e <-f|--files ifile tfile ofile> {--} <param1~ip> [param2~sw~ param3] # more info' file.txt --verb -ij -e --files in.txt tmp.txt out.txt 12 "all In" "all on"
+ 0:-  valid[0]: func=0  : SUCCESS
+ 1:0  valid[1]: file_txt="file.txt"
+ 4:1  valid[1]: __verb=1
+ 5:2  valid[1]: _i=1
+ 6:2  valid[1]: _j=1
+ 9:3  valid[1]: _e=1
+11:4  valid[1]: __files=1
+12:5  valid[1]: ifile="in.txt"
+13:6  valid[1]: tfile="tmp.txt"
+14:7  valid[1]: ofile="out.txt"
+16:8  valid[1]: param1=12
+17:9  valid[1]: param2="all In"
+18:10 valid[1]: param3="all on"
+#----------------------------------------------------------------------------
+# example 96: Long Help carriage returns
+getparms.sh -crs -on -~ 'func <file_txt~s@~.txt> -v:verb|m~h|--verb {-in} {-io} -i {-j} [-m=ind_parm] -e <-f|--files ifile tfile ofile> <param1~ip> [param2 param3~vu-] #\ninfo line1\ninfo line2\ninfo line3' file.txt 0x48 -ji -e --files in.txt tmp.txt out.txt 12 "all In" "all_on"
+ 0:-  valid[0]: func=0  : SUCCESS
+ 1:0  valid[1]: file_txt="file.txt"
+ 3:1  valid[1]: m=0x48
+ 7:2  valid[1]: _i=1
+ 8:2  valid[1]: _j=1
+11:3  valid[1]: _e=1
+13:4  valid[1]: __files=1
+14:5  valid[1]: ifile="in.txt"
+15:6  valid[1]: tfile="tmp.txt"
+16:7  valid[1]: ofile="out.txt"
+17:8  valid[1]: param1=12
+18:9  valid[1]: param2="all In"
+19:10 valid[1]: param3="all_on"
+#----------------------------------------------------------------------------
+# example 97: Support for option ending +
+getparms.sh -ccs -on -~ 'func {-o+} # option ending in +' -o+
+valid[0]: func=0  : SUCCESS
+valid[1]: _o_plus=1
+#----------------------------------------------------------------------------
+# example 98: Support for option ending +
+getparms.sh -ccsl -on -~ 'func {-o+} # option ending in +' -o+
+valid[0]: func=0  : SUCCESS
+valid[1]: o_plus=1
+#----------------------------------------------------------------------------
+# example 99: Negative specification test
+getparms.sh -crs -on -~ 'func filein {-v|m|--verb|n}{-i:input~i} {-m=ind_parm~s-} {--} {--} <-o outfile> param1 [param2]' file.txt happy -ji -e --files in.txt tmp.txt out.txt 12 "all In" "all on"
+ 0:- valid[0]: func=8  : MISORDR
+#----------------------------------------------------------------------------
+# TestFeature Examples End
+#----------------------------------------------------------------------------

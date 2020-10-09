@@ -1,0 +1,392 @@
+#----------------------------------------------------------------------------
+# TestStrType Examples Bgn [file: getparms.xstr.txt] [getparms ver. 1.0.4] [Max:84]
+#----------------------------------------------------------------------------
+# example 1 : Test varname any
+getparms.sh -cces -~ 'func <item~v>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210"
+#----------------------------------------------------------------------------
+# example 2 : Test underscores
+getparms.sh -cces -~ 'func <item~vu>' '__'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="__"
+#----------------------------------------------------------------------------
+# example 3 : Test var uppers
+getparms.sh -cces -~ 'func <item~v+>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#----------------------------------------------------------------------------
+# example 4 : Test var lowers
+getparms.sh -cces -~ 'func <item~v->' 'abcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="abcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 5 : Test var upr+low
+getparms.sh -cces -~ 'func <item~v+->' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 6 : Test var upr+num
+getparms.sh -cces -~ 'func <item~v+n>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210"
+#----------------------------------------------------------------------------
+# example 7 : Test var upr+und
+getparms.sh -cces -~ 'func <item~v+u>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#----------------------------------------------------------------------------
+# example 8 : Test var low+num
+getparms.sh -cces -~ 'func <item~v-n>' 'abcdefghijklmnopqrstuvwxyz9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="abcdefghijklmnopqrstuvwxyz9876543210"
+#----------------------------------------------------------------------------
+# example 9 : Test var low+und
+getparms.sh -cces -~ 'func <item~v-u>' '_abcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_abcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 10: Test var und+num
+getparms.sh -cces -~ 'func <item~vun>' '_9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_9876543210"
+#----------------------------------------------------------------------------
+# example 11: Test var u|l+num
+getparms.sh -cces -~ 'func <item~v+-n>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210"
+#----------------------------------------------------------------------------
+# example 12: Test var u|l+und
+getparms.sh -cces -~ 'func <item~v+-u>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz_'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz_"
+#----------------------------------------------------------------------------
+# example 13: Test var upr_num
+getparms.sh -cces -~ 'func <item~v+un>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZ_9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZ_9876543210"
+#----------------------------------------------------------------------------
+# example 14: Test var low_num
+getparms.sh -cces -~ 'func <item~v-un>' '_abcdefghijklmnopqrstuvwxyz_9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_abcdefghijklmnopqrstuvwxyz_9876543210"
+#----------------------------------------------------------------------------
+# example 15: Test var u|l_num
+getparms.sh -cces -~ 'func <item~v+-un>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_9876543210"
+#----------------------------------------------------------------------------
+# example 20: Test str numbers
+getparms.sh -cces -~ 'func <item~sn>' '9876543210'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210"
+#----------------------------------------------------------------------------
+# example 21: Test str unders
+getparms.sh -cces -~ 'func <item~su>' '__'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="__"
+#----------------------------------------------------------------------------
+# example 22: Test str uppers
+getparms.sh -cces -~ 'func <item~s+>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#----------------------------------------------------------------------------
+# example 23: Test str lowers
+getparms.sh -cces -~ 'func <item~s->' 'abcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="abcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 24: Test str upr+low
+getparms.sh -cces -~ 'func <item~s+->' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 25: Test str upr+num
+getparms.sh -cces -~ 'func <item~sn+>' '9876543210ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#----------------------------------------------------------------------------
+# example 26: Test str upr+und
+getparms.sh -cces -~ 'func <item~su+>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#----------------------------------------------------------------------------
+# example 27: Test str low+num
+getparms.sh -cces -~ 'func <item~sn->' '9876543210abcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210abcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 28: Test str low+und
+getparms.sh -cces -~ 'func <item~su->' '_abcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_abcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 29: Test str num+und
+getparms.sh -cces -~ 'func <item~snu>' '9876543210_'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210_"
+#----------------------------------------------------------------------------
+# example 30: Test str num+u|l
+getparms.sh -cces -~ 'func <item~s~n>' '9876543210ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 31: Test str low+und
+getparms.sh -cces -~ 'func <item~s~u>' '_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
+#----------------------------------------------------------------------------
+# example 32: Test str num_upr
+getparms.sh -cces -~ 'func <item~s+un>' '9876543210_ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#----------------------------------------------------------------------------
+# example 33: Test str num_low
+getparms.sh -cces -~ 'func <item~s-un>' '9876543210_abcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210_abcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 34: Test str num_u|l
+getparms.sh -cces -~ 'func <item~s~un>' '9876543210_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="9876543210_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#----------------------------------------------------------------------------
+# example 35: Test str delimit
+getparms.sh -cces -~ 'func <item~sd>' '[]()<>{}'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="[]()<>{}"
+#----------------------------------------------------------------------------
+# example 36: Test str logics
+getparms.sh -cces -~ 'func <item~sl>' '*/~=|&^%'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="*/~=|&^%"
+#----------------------------------------------------------------------------
+# example 37: Test str punct.
+getparms.sh -cces -~ 'func <item~sg>' '\!?:;,.'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="\!?:;,."
+#----------------------------------------------------------------------------
+# example 38: Test str symbol
+getparms.sh -cces -~ 'func <item~sy>' '@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="@#$\"
+#----------------------------------------------------------------------------
+# example 42: Test str at (@)
+getparms.sh -cces -~ 'func <items~sa> # dbl-quoted' '@@'
+valid[0]: func=0  : SUCCESS
+valid[1]: items="@@"
+#----------------------------------------------------------------------------
+# example 43: Test str backsl (\)
+getparms.sh -cces -~ 'func <item~sb> # dbl-quoted' '\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="\"
+#----------------------------------------------------------------------------
+# example 44: Test str colons (:;)
+getparms.sh -cces -~ 'func <item~sc> # dbl-quoted' ':;'
+valid[0]: func=0  : SUCCESS
+valid[1]: item=":;"
+#----------------------------------------------------------------------------
+# example 45: Test str equalsign (=)
+getparms.sh -cces -~ 'func <item~se> # dbl-quoted' '=='
+valid[0]: func=0  : SUCCESS
+valid[1]: item="=="
+#----------------------------------------------------------------------------
+# example 46: Test str fwd slash (/)
+getparms.sh -cces -~ 'func <item~sf> # dbl-quoted' '//'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//"
+#----------------------------------------------------------------------------
+# example 47: Test str hash mark (#)
+getparms.sh -cces -~ 'func <item~sh> # dbl-quoted' '##'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="##"
+#----------------------------------------------------------------------------
+# example 48: Test str inquiries (?)
+getparms.sh -cces -~ 'func <item~si> # dbl-quoted' '??'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="??"
+#----------------------------------------------------------------------------
+# example 49: Test str jot|period (.)
+getparms.sh -cces -~ 'func <item~sj> # dbl-quoted' '..'
+valid[0]: func=0  : SUCCESS
+valid[1]: item=".."
+#----------------------------------------------------------------------------
+# example 50: Test str caret|hats (^)
+getparms.sh -cces -~ 'func <item~sk> # dbl-quoted' '^^'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="^^"
+#----------------------------------------------------------------------------
+# example 51: Test str minus|dash (-)
+getparms.sh -cces -~ 'func <item~sm> # dbl-quoted' '-'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="-"
+#----------------------------------------------------------------------------
+# example 52: Test str an or sign (|)
+getparms.sh -cces -~ 'func <item~so> # dbl-quoted' '||'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="||"
+#----------------------------------------------------------------------------
+# example 53: Test str plus sign (+)
+getparms.sh -cces -~ 'func <item~sp> # dbl-quoted' '++'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="++"
+#----------------------------------------------------------------------------
+# example 54: Test str quotes ("')
+getparms.sh -cces -~ 'func <item~sq> # dbl-quoted' '"''
+valid[0]: func=0  : SUCCESS
+valid[1]: item=""'"
+#----------------------------------------------------------------------------
+# example 55: Test str rests (,)
+getparms.sh -cces -~ 'func <item~sr> # dbl-quoted' ',,'
+valid[0]: func=0  : SUCCESS
+valid[1]: item=",,"
+#----------------------------------------------------------------------------
+# example 56: Test str stars (*)
+getparms.sh -cces -~ 'func <item~ss> # dbl-quoted' '**'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="**"
+#----------------------------------------------------------------------------
+# example 57: Test str tilda (~)
+getparms.sh -cces -~ 'func <item~st> # dbl-quoted' '~~'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="~~"
+#----------------------------------------------------------------------------
+# example 58: Test str percent (%)
+getparms.sh -cces -~ 'func <item~sv> # dbl-quoted' '%%'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="%%"
+#----------------------------------------------------------------------------
+# example 59: Test str whitesp ( )
+getparms.sh -cces -~ 'func <item~sw> # dbl-quoted' ' '
+valid[0]: func=0  : SUCCESS
+valid[1]: item=" "
+#----------------------------------------------------------------------------
+# example 60: Test str exclam. (!)
+getparms.sh -cces -~ 'func <item~sx> # dbl-quoted' '!'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="!"
+#----------------------------------------------------------------------------
+# example 61: Test str dollars ($)
+getparms.sh -cces -~ 'func <item~sz> # dbl-quoted' '$'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="$"
+#----------------------------------------------------------------------------
+# example 62: Test str generic
+getparms.sh -cces -~ 'func <item~s>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 63: Test str all +&-
+getparms.sh -cces -~ 'func <item~s+-unwdlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 64: Test str all w/~
+getparms.sh -cces -~ 'func <item~s~unwdlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 65: Test str no upper
+getparms.sh -cces -~ 'func <item~s-unwdlgy>' 'abcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="abcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 66: Test str no lower
+getparms.sh -cces -~ 'func <item~s+unwdlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 67: Test str no under
+getparms.sh -cces -~ 'func <item~s~nwdlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 68: Test str no number
+getparms.sh -cces -~ 'func <item~s~uwdlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz []()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz []()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 69: Test str no spaces
+getparms.sh -cces -~ 'func <item~s~undlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210[]()<>{}*/~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210[]()<>{}*/~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 70: Test str no delimit
+getparms.sh -cces -~ 'func <item~s~unwlgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 */~=|&^%\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 */~=|&^%\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 71: Test str no logics
+getparms.sh -cces -~ 'func <item~s~unwdgy>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}\!?:;,.@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}\!?:;,.@#$\"
+#----------------------------------------------------------------------------
+# example 72: Test str no punct.
+getparms.sh -cces -~ 'func <item~s~unwdly>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%@#$\'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%@#$\"
+#----------------------------------------------------------------------------
+# example 73: Test str no symbol
+getparms.sh -cces -~ 'func <item~s~unwdlg>' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,.'
+valid[0]: func=0  : SUCCESS
+valid[1]: item="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz9876543210 []()<>{}*/~=|&^%\!?:;,."
+#----------------------------------------------------------------------------
+# example 74: Parm match enum bgn
+getparms.sh -cces -~ 'func <dow~s%Mon%Tue%Wed>' Mon
+valid[0]: func=0  : SUCCESS
+valid[1]: dow="Mon"
+#----------------------------------------------------------------------------
+# example 75: Parm match enum mid
+getparms.sh -cces -~ 'func <dow~s%Mon%Tue%Wed>' Tue
+valid[0]: func=0  : SUCCESS
+valid[1]: dow="Tue"
+#----------------------------------------------------------------------------
+# example 76: Parm match enum end
+getparms.sh -cces -~ 'func <dow~s%Mon%Tue%Wed>' Wed
+valid[0]: func=0  : SUCCESS
+valid[1]: dow="Wed"
+#----------------------------------------------------------------------------
+# example 77: Enum with hyphen in
+getparms.sh -cces -~ 'func  num~s@1@1-3@3 ' 1-3
+valid[0]: func=0  : SUCCESS
+valid[1]: num="1-3"
+#----------------------------------------------------------------------------
+# example 78: Enum with plus sign
+getparms.sh -cces -~ 'func  num~s@1@1+3@3 ' 1+3
+valid[0]: func=0  : SUCCESS
+valid[1]: num="1+3"
+#----------------------------------------------------------------------------
+# example 79: Enum with hyphen in
+getparms.sh -cces -~ 'func  num~s%1%1-3%3 ' 1-3
+valid[0]: func=0  : SUCCESS
+valid[1]: num="1-3"
+#----------------------------------------------------------------------------
+# example 80: Enum with plus sign
+getparms.sh -cces -~ 'func  num~s%1%1+3%3 ' 1+3
+valid[0]: func=0  : SUCCESS
+valid[1]: num="1+3"
+#----------------------------------------------------------------------------
+# example 81: Parm bgn str escape .
+getparms.sh -cces -~ 'func <file_txt~s%file\.~>' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: file_txt="file.txt"
+#----------------------------------------------------------------------------
+# example 82: Parm ins end quoted .
+getparms.sh -cces -~ 'func <file_txt~sj~%~".txt">' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: file_txt="file.txt"
+#----------------------------------------------------------------------------
+# example 83: Indp bgn str escape .
+getparms.sh -cces -~ 'func <-f file_txt~s%file\.~>' -f file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: file_txt="file.txt"
+#----------------------------------------------------------------------------
+# example 84: Indp ins end quoted .
+getparms.sh -cces -~ 'func <-f=file_txt~sj~%~".Txt">' -f=file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: file_txt="file.txt"
+#----------------------------------------------------------------------------
+# TestStrType Examples End
+#----------------------------------------------------------------------------

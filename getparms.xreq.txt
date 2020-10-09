@@ -1,0 +1,55 @@
+#----------------------------------------------------------------------------
+# TestReqOpts Examples Bgn [file: getparms.xreq.txt] [getparms ver. 1.0.4] [Max:22]
+#----------------------------------------------------------------------------
+# example 1 : default required demarking for NoLmt = '' with reqd: 1
+getparms.sh -ccensw     -~ "func  item  # '' test reqd" 1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="1"
+#----------------------------------------------------------------------------
+# example 2 : default required demarking for NoLmt = '' with optn
+getparms.sh -ccensw -on -~ "func  item  # '' test optn"
+valid[0]: func=0  : SUCCESS
+empty[0]: item=""
+#----------------------------------------------------------------------------
+# example 3 : default optional delimiter for Sqare = [] with optn
+getparms.sh -ccensw     -~ "func [item] # [] test optn"
+valid[0]: func=0  : SUCCESS
+empty[0]: item=""
+#----------------------------------------------------------------------------
+# example 4 : default optional delimiter for Sqare = [] with reqd: 2
+getparms.sh -ccensw -os -~ "func [item] # [] test reqd" 2
+valid[0]: func=0  : SUCCESS
+valid[1]: item="2"
+#----------------------------------------------------------------------------
+# example 5 : default optional delimiter for Paran = () with optn
+getparms.sh -ccensw     -~ "func (item) # () test optn"
+valid[0]: func=0  : SUCCESS
+empty[0]: item=""
+#----------------------------------------------------------------------------
+# example 6 : default optional delimiter for Paran = () with reqd: 3
+getparms.sh -ccensw -op -~ "func (item) # () test reqd" 3
+valid[0]: func=0  : SUCCESS
+valid[1]: item="3"
+#----------------------------------------------------------------------------
+# example 7 : default required delimiter for Angle = <> with reqd: 4
+getparms.sh -ccensw     -~ "func <item> # <> test reqd" 4
+valid[0]: func=0  : SUCCESS
+valid[1]: item="4"
+#----------------------------------------------------------------------------
+# example 8 : default required delimiter for Angle = <> with optn
+getparms.sh -ccensw -oa -~ "func <item> # <> test optn"
+valid[0]: func=0  : SUCCESS
+empty[0]: item=""
+#----------------------------------------------------------------------------
+# example 9 : default optional delimiter for Curly = {} with optn
+getparms.sh -ccensw     -~ "func {item} # {} test optn"
+valid[0]: func=0  : SUCCESS
+empty[0]: item=""
+#----------------------------------------------------------------------------
+# example 10: default optional delimiter for Curly = {} with reqd: 5
+getparms.sh -ccensw -oc -~ "func {item} # {} test reqd" 5
+valid[0]: func=0  : SUCCESS
+valid[1]: item="5"
+#----------------------------------------------------------------------------
+# TestReqOpts Examples End
+#----------------------------------------------------------------------------

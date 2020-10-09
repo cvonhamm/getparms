@@ -1,0 +1,767 @@
+#----------------------------------------------------------------------------
+# TestErrored Examples Bgn [file: getparms.xerr.txt] [getparms ver. 1.0.4] [Max:114]
+#----------------------------------------------------------------------------
+# example 1  : Error BFCN [02] : Bad|absent function name found: due to the missing function name
+getparms -ch  -~ '-i # error BFCN (func name missing)' 
+ErrorMsgs: 1
+00 [BFCN]: Bad|absent function name found: "-i" - s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 2  : Error BFCN [02] : Bad|absent function name found: due to an invalid char pipe: '|'
+getparms -ch  -~ 'hi|bye {-i} # error BFCN (func bad char)' 
+ErrorMsgs: 1
+00 [BFCN]: Bad|absent function name found: "hi|bye" - s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 3  : Error BNAM [03] : Item's name contains bad chars: due to bad parm name with hyphen
+getparms -ch  -~ 'func {nam-end} # error BNAM bad parm name: hyphen' 
+ErrorMsgs: 1
+01 [BNAM]: Item's name contains bad chars: parm:'nam-end' s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 4  : Error BNAM [03] : Item's name contains bad chars: due to bad indp name with period
+getparms -ch  -~ 'func {-f=file.txt} # error BNAM bad indp name: dot' 
+ErrorMsgs: 1
+02 [BNAM]: Item's name contains bad chars: parm:'file.txt' s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 5  : Error BNAM [03] : Item's name contains bad chars: due to bad optn name leading num
+getparms -ch  -~ 'func {-o:3opt} # error BNAM bad altn name: lead num' 
+ErrorMsgs: 1
+01 [BNAM]: Item's name contains bad chars: altn:'3opt' s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 6  : Error BNAM [03] : Item's name contains bad chars: due to bad enum contains a space
+getparms -ch  -~ 'func {dow~s%a one%two} # error BNAM (enum with space)' 
+ErrorMsgs: 1
+02 [BNAM]: Item's name contains bad chars: parm:'one%two' s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 7  : Error BNAM [03] : Item's name contains bad chars: due to bad optn with middle plus
+getparms -ch  -~ 'func {-o+o} # error BNAM (optn with middle plus)' 
+ErrorMsgs: 1
+01 [BNAM]: Item's name contains bad chars: optn:'-o+o' s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 8  : Error BNAM [03] : Item's name contains bad chars: due to bad parm with middle plus
+getparms -ch  -~ 'func {o+o}  # error BNAM (parm with middle plus)' 
+ErrorMsgs: 1
+01 [BNAM]: Item's name contains bad chars: parm:'o+o' s/b: [_a-zA-Z][_a-zA-Z0-9]*
+func=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 9  : Error BPVR [04] : Bad parsing value was received: due to a pref letter 'z' unknown
+getparms -ch -pz=@ -~ 'func  # error BPVR' 
+ErrorMsgs: 1
+00 [BPVR]: Bad parsing value was received: SetSym unknown letter: z=@ @ 0
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 10 : Error BPVR [04] : Bad parsing value was received: due to an opt letter 'z' unknown
+getparms -ch -oz -~ 'func  # error BPVR' 
+ErrorMsgs: 1
+00 [BPVR]: Bad parsing value was received: SetItem unknown letter: z at 0
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 11 : Error BPVR [04] : Bad parsing value was received: due to pref symbol ';' is banned
+getparms -ch -pt; -~ 'func  # error BPVR [banned symbol]' 
+ErrorMsgs: 1
+00 [BPVR]: Bad parsing value was received: SetSym banned in ';'
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 12 : Error BPVR [04] : Bad parsing value was received: due to pref. val can't be number
+getparms -ch -pt1 -~ 'func  # error BPVR [alpha-numeric]' 
+ErrorMsgs: 1
+00 [BPVR]: Bad parsing value was received: SetSym alpha# in '1'
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 13 : Error BPVR [04] : Bad parsing value was received: due to pref would be a duplicate
+getparms -ch -ch -pt$ -~ 'func  # error BPVR [existing set]' 
+ErrorMsgs: 1
+00 [BPVR]: Bad parsing value was received: SetSym banned in '$'
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 14 : Error CFUN [05] : Unknown -c Config was received: due to config, 'z' being unknown
+getparms -ch -cz -~ 'func  # error CFUN' 
+Warn_Msgs: 1 
+01 [CFUN]: Unknown -c Config was received: opt=-cz [found in SetCfg]
+func=7  : UNSUPPT
+#----------------------------------------------------------------------------
+# example 15 : Error DFCN [06] : Collides with the scripts name: due to parm is same as function 
+getparms -ch -on -~ 'func func -i # error DFCN' 
+Warn_Msgs: 1 
+01 [DFCN]: Collides with the scripts name: func @ 0 & 1
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 16 : Error DTOP [07] : Options don't support Datatype: due to optns can't have datatype
+getparms -ch  -~ 'func {-o~ni} # error DTOP' 
+Warn_Msgs: 1 
+01 [DTOP]: Options don't support Datatype: opt -o~ni dtyp=15 [a pos/neg. number]
+func=7  : UNSUPPT
+#----------------------------------------------------------------------------
+# example 17 : Error DTPV [08] : Datatype requires a parm value: due to dtype missing val after @
+getparms -ch  -~ 'func {file~f@} # error DTPV - no value' 
+Warn_Msgs: 1 
+01 [DTPV]: Datatype requires a parm value: ~f@ @ 1 val='' [required data blank] [wrong string]
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 18 : Error DTSH [09] : Datatype unsupported for SHIPs: due to SHIP can't have datatypes
+getparms -ch  -~ 'func {-d=~s+} # error DTSH' 
+Warn_Msgs: 1 
+01 [DTSH]: Datatype unsupported for SHIPs: -d SHIP dtyp=24 [must be num|range|listnum]
+func=6  : MISMTCH
+#----------------------------------------------------------------------------
+# example 19 : Error DTSH [09] : Datatype unsupported for SHIPs: due to SHIP dtype after alt name
+getparms -ch  -~ 'func {--m-p-h=:miles~np} # SHIP altname & datatype (N/A) afters' 
+Warn_Msgs: 1 
+01 [DTSH]: Datatype unsupported for SHIPs: --m-p-h SHIP dtyp=13 [must be num|range|listnum]
+func=6  : MISMTCH
+#----------------------------------------------------------------------------
+# example 20 : Error DTSH [09] : Datatype unsupported for SHIPs: due to SHIP dtype before altname
+getparms -ch  -~ 'func {--m-p-h~np:miles} # SHIP altname & datatype (N/A) before' 
+Warn_Msgs: 1 
+01 [DTOP]: Options don't support Datatype: opt miles dtyp=13 [a positive number]
+func=7  : UNSUPPT
+#----------------------------------------------------------------------------
+# example 21 : Error DTUD [10] : Unrecognized Datatype received: due to unknown datatype was rcvd
+getparms -ch  -~ 'func {parm~z} # error DTUD' 
+Warn_Msgs: 1 
+01 [DTUD]: Unrecognized Datatype received: ~z @ 1 [wasn't found]
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 22 : Error DVUN [11] : DataValu unsupported for dtype: due to an unsupported data value
+getparms -ch  -~ 'func {file~f@1-2}  # error DVUN' 
+Warn_Msgs: 1 
+01 [DVUN]: DataValu unsupported for dtype: ~f@1-2 @ 1 [not supported] val='RANG'
+func=6  : MISMTCH
+#----------------------------------------------------------------------------
+# example 23 : Error ENDL [12] : Item after endless parm. found: due to endless parm was not last
+getparms -ch  -~ 'func {a ...} {pastend} # error ENDL' 
+Warn_Msgs: 1 
+02 [ENDL]: Item after endless parm. found: name='pastend' @ 1
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 24 : Error ENDL [12] : Item after endless parm. found: due to endless indp was not last
+getparms -ch  -~ 'func {-f=a ...} {-a} # error ENDL' 
+Warn_Msgs: 1 
+03 [ENDL]: Item after endless parm. found: name='-a' @ 2
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 25 : Error INVN [13] : Invalid received number format: due to enum range not an hex (g)
+getparms -ch  -~ 'func {hex~h@10-1g} # error INVN' 
+Warn_Msgs: 1 
+01 [INVN]: Invalid received number format: ~h@10-1g @ 1 [wrong number]
+func=6  : MISMTCH
+#----------------------------------------------------------------------------
+# example 26 : Error INVN [13] : Invalid received number format: due to enum range not an hex (h)
+getparms -ch  -~ 'func hex~h # error INVN (bad hex int)' 0xabh
+Warn_Msgs: 1 
+01 [INVN]: Invalid received number format: wrong number, s/b: ~h [23:a hexadecimal num] was: hex='0xabh'
+func=6  : MISMTCH
+hex=0xabh
+#----------------------------------------------------------------------------
+# example 27 : Error INVN [13] : Invalid received number format: due to percent int was a decimal
+getparms -ch  -~ 'func -f=item~%50 # error INVN  (%: positive num)' -f +5.5
+Warn_Msgs: 2 
+02 [INVN]: Invalid received number format: ind wrong number, s/b: ~%0-50 [22:num% 0-val|-val-0] was: item='+5.5'
+02 [INVN]: Invalid received number format: wrong number, s/b: ~%0-50 [22:num% 0-val|-val-0] was: item='+5.5'
+func=6  : MISMTCH
+_f=1
+item=+5.5
+#----------------------------------------------------------------------------
+# example 28 : Error INVN [13] : Invalid received number format: due to neg int percent was a pos
+getparms -ch  -~ 'func -f=item~%-50 # error INVN (%: pos s/b neg)' -f 5
+ErrorMsgs: 2
+02 [RVOR]: Received Value is Out of Range: ind out of range, s/b: ~%-50-0 [22:num% 0-val|-val-0] was: item='5'
+02 [RVOR]: Received Value is Out of Range: out of range, s/b: ~%-50-0 [22:num% 0-val|-val-0] was: item='5'
+func=8  : MISORDR
+_f=1
+item=5
+#----------------------------------------------------------------------------
+# example 29 : Error MIPC [16] : Multiple IndirectParm w/commas: due to multiple OSIPs with comma
+getparms -ch  -~ 'func {-f=parm1,parm2,parm3} # error MIPC due to OSIP' 
+ErrorMsgs: 1
+02 [MIPC]: Multiple IndirectParm w/commas: OSIP names='parm1,parm2,parm3'
+func=5  : TOOMANY
+#----------------------------------------------------------------------------
+# example 30 : Error MIPC [16] : Multiple IndirectParm w/commas: due to multiple indps with comma
+getparms -ch  -~ 'func {-f parm1,parm2,parm3} # error MIPC due to Norm Indp' 
+ErrorMsgs: 1
+02 [MIPC]: Multiple IndirectParm w/commas: Parm names='parm1,parm2,parm3'
+func=5  : TOOMANY
+#----------------------------------------------------------------------------
+# example 31 : Error MIPP [14] : Missing IndirectParameter parm: due to indp w/ no leading option
+getparms -ch  -~ 'func {=parm} # error MIPP (begin with '=')' 
+ErrorMsgs: 1
+01 [MIPP]: Missing IndirectParameter parm: "=parm" @ 1
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 32 : Error MIPP [14] : Missing IndirectParameter parm: due to indp w/ no trailing parms
+getparms -ch  -~ 'func {parm=} # error MIPP (ended with '=')' 
+ErrorMsgs: 1
+01 [MIPP]: Missing IndirectParameter parm: "parm=" @ 1
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 33 : Error MIPP [14] : Missing IndirectParameter parm: due to isolated equals ch. ('=')
+getparms -ch  -~ 'func   {=}   # error MIPP (only with '=')' 
+ErrorMsgs: 1
+01 [MIPP]: Missing IndirectParameter parm: "=" @ 1
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 34 : Error MIPP [14] : Missing IndirectParameter parm: due to too few of multi-ind parm
+getparms -ch -ccs -~ 'func {-f prm1 prm2 prm3} # error MIPP (multi-indp)' -f val1 val2
+ErrorMsgs: 1
+01 [MIPP]: Missing IndirectParameter parm: s/b 3, was 2 for: -f prm1 prm2 prm3 
+valid[0]: func=2  : UNFOUND
+valid[1]: _f=1
+valid[1]: prm1="val1"
+valid[1]: prm2="val2"
+empty[0]: prm3=""
+#----------------------------------------------------------------------------
+# example 35 : Error MIPP [14] : Missing IndirectParameter parm: due to the missing rcvd ind parm
+getparms -ch  -~ 'func <-i in> # error MIPP (miss required ind parm)' -i
+ErrorMsgs: 1
+01 [MIPP]: Missing IndirectParameter parm: s/b 1, was 0 for: -i in 
+func=2  : UNFOUND
+_i=1
+#----------------------------------------------------------------------------
+# example 36 : Error MORP [15] : Multiple parm in a Mixed group: due to multiple mixed spec parms
+getparms -ch  -~ 'func {-v|m1|m2} # error MORP' 
+Warn_Msgs: 1 
+03 [MORP]: Multiple parm in a Mixed group: orig|name:m1|m2 [2]
+func=5  : TOOMANY
+#----------------------------------------------------------------------------
+# example 37 : Error MRPP [17] : More requires a preceding parm: due to endless but no first parm
+getparms -ch  -~ 'func {...} # error MRPP (more at beginning)' 
+ErrorMsgs: 1
+01 [MRPP]: More requires a preceding parm: ... but preceding was: 'func'
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 38 : Error MRPP [17] : More requires a preceding parm: due to endless after ungroup opt
+getparms -ch -on -~ 'func  -d ...  # error MRPP missing previous parm name with optn' 
+ErrorMsgs: 1
+02 [MRPP]: More requires a preceding parm: ... but preceding was: '-d'
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 39 : Error MRPP [17] : More requires a preceding parm: due to endless after grouped opt
+getparms -ch  -~ 'func {-d ...} # error MRPP (more after opt)' 
+ErrorMsgs: 1
+02 [MRPP]: More requires a preceding parm: ... but preceding was: '-d'
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 40 : Error MRPP [17] : More requires a preceding parm: due to endless indp w/o 1st parm
+getparms -ch  -~ 'func {-d=...} # error MRPP (more in indprm)' 
+ErrorMsgs: 1
+01 [MRPP]: More requires a preceding parm: -d=... more symbol must be the next item
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 41 : Error MTHS [18] : Empty HELP Option string given! due to a absent spec help string
+getparms -ch  -~ '' 
+00 [MTHS]: Empty HELP Option string given! 
+#----------------------------------------------------------------------------
+# example 42 : Error MTPI [19] : Parsing item empty | has space: due to the missing pref's value 
+getparms -ch -pg -~ 'func  # error MTPI (SetSym)' 
+ErrorMsgs: 1
+00 [MTPI]: Parsing item empty | has space: SetSym badval in ''
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 43 : Error MTPI [19] : Parsing item empty | has space: due to the missing options value
+getparms -ch -o -~ 'func  # error MTPI (SetItem)' 
+ErrorMsgs: 1
+00 [MTPI]: Parsing item empty | has space: found in SetItem no val4 
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 44 : Error MULO [20] : Multiple option with same name: due to multiple end bgnp markers
+getparms -ch  -~ 'func {-+} {prm1} {-+} {-i} {prm2} # error MULO' 1 2
+ErrorMsgs: 1
+01 [MULO]: Multiple option with same name: -+
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 45 : Error MULO [20] : Multiple option with same name: due to multiple end opts markers
+getparms -ch  -~ 'func {-i} {--} {prm1} {--} {prm2} # error MULO' 1 2
+ErrorMsgs: 1
+02 [MULO]: Multiple option with same name: --
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 46 : Error MULO [20] : Multiple option with same name: due to options w/ identical name
+getparms -ch  -~ 'func -i -i # error MULO' 
+ErrorMsgs: 1
+02 [MULO]: Multiple option with same name: -i
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 47 : Error MULO [20] : Multiple option with same name: due to option collides with help
+getparms -ch  -~ 'func -h # error MULO' 
+ErrorMsgs: 1
+01 [RHLP]: Collides with defined help opt: -h
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 48 : Error MULO [20] : Multiple option with same name: due to pure & ship opt collision
+getparms -ch -cb -~ 'func {-b}  {-b=} # error MULO' -b5
+SpecLine: func {-b}  {-b=}
+optn[00]: func  "-h|--help"        [hlp][hlp]
+optn[01]: _b    "-b"               [opt][opt]
+optn[02]: _b    "-b"               [sip][sip]
+ErrorMsgs: 1
+02 [MULO]: Multiple option with same name: -b
+RxdInput: 
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 49 : Error MULO [20] : Multiple option with same name: due to pure & ship opt collision
+getparms -ch -cb -~ 'func {-b=} {-b}  # error MULO' -b5
+SpecLine: func {-b=} {-b} 
+optn[00]: func  "-h|--help"        [hlp][hlp]
+optn[01]: _b    "-b"               [sip][sip]
+optn[02]: _b    "-b"               [opt][opt]
+ErrorMsgs: 1
+02 [MULO]: Multiple option with same name: -b
+RxdInput: 
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 50 : Error MULP [21] : Multiple output names are same: due to duplicate parameter names
+getparms -ch  -~ 'func {name} {name} # error MULP (collide with parm)' 
+Warn_Msgs: 1 
+01 [MULP]: Multiple output names are same: name @ 1 & 2
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 51 : Error MULP [21] : Multiple output names are same: due to parm name & opt name same
+getparms -ch  -~ 'func {-n} {_n} # error MULP (collide with option)' 
+Warn_Msgs: 1 
+01 [MULP]: Multiple output names are same: _n @ 1 & 2
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 52 : Error MULP [21] : Multiple output names are same: due to bgn & end parm names same
+getparms -ch  -~ 'func {prm1} {-+} {-i} {prm1} # error MULP (bgn & end parm collide)' 
+Warn_Msgs: 1 
+01 [MULP]: Multiple output names are same: prm1 @ 1 & 4
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 53 : Error OADD [22] : No Options after a double dash: due to pure optn after end optns
+getparms -ch -on -~ 'func -- -i # error OADD (pure opt)' 
+Warn_Msgs: 1 
+02 [OADD]: No Options after a double dash: -i after 0
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 54 : Error OADD [22] : No Options after a double dash: due to indp opt after end of opt
+getparms -ch  -~ 'func {--} {-f file} # error OADD (indp)' 
+Warn_Msgs: 1 
+02 [OADD]: No Options after a double dash: -f after 0
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 55 : Error OADD [22] : No Options after a double dash: due to OSIP being after end opts
+getparms -ch  -~ 'func {-- -f=file} # error OADD (OSIP)' 
+Warn_Msgs: 1 
+02 [OADD]: No Options after a double dash: -f after 0
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 56 : Error OADD [22] : No Options after a double dash: due to SHIP being after end opts
+getparms -ch  -~ 'func {-- -f=} # error OADD (SHIP)' 
+Warn_Msgs: 1 
+02 [OADD]: No Options after a double dash: -f after 0
+func=8  : MISORDR
+#----------------------------------------------------------------------------
+# example 57 : Error PALT [23] : Params can't have an alt. name: due to param having an alt. name
+getparms -ch  -~ 'func {parm:altname} # error PALT (Parm with altname)' 
+Warn_Msgs: 1 
+01 [PALT]: Params can't have an alt. name: "parm" has altname: 'altname'
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 58 : Error PALT [23] : Params can't have an alt. name: due to OSIP prm having alt. name
+getparms -ch  -~ 'func {-f=miles:altname} # error PALT (Indp with altname)' 
+Warn_Msgs: 1 
+02 [PALT]: Params can't have an alt. name: "miles" has altname: 'altname'
+func=4  : NOTSPEC
+#----------------------------------------------------------------------------
+# example 59 : Error QUNF [24] : Quoted string was not finished: due to a quote that's unfinished
+getparms -ch  -~ 'func <-f=file_txt~np@num~"> # error QUNF (in GetQuote)' -f=file.txt
+ErrorMsgs: 1
+01 [QUNF]: Quoted string was not finished: item:'func <-f=file_txt~np@num~">' @ 1 [5]
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 60 : Error RHLP [25] : Collides with defined help opt: option defined as '-h' collides
+getparms -ch  -~ 'func {-h} # error RHLP' 
+ErrorMsgs: 1
+01 [RHLP]: Collides with defined help opt: -h
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 61 : Error RHLP [25] : Collides with defined help opt: opt defined as '--help' collides
+getparms -ch  -~ 'func {--help} # error RHLP' 
+ErrorMsgs: 1
+01 [RHLP]: Collides with defined help opt: --help
+func=3  : FOUNDIT
+#----------------------------------------------------------------------------
+# example 62 : Error RNAE [26] : Range not allowed with extract: due to a extract exact N/A range
+getparms -ch  -~ 'func <name~i@@5-7> # exact extract' 6
+Warn_Msgs: 1 
+01 [RNAE]: Range not allowed with extract: ~i@@5-7 @ 1 [bad datatype]
+func=1  : FAILURE
+name=6
+#----------------------------------------------------------------------------
+# example 63 : Error RNAE [26] : Range not allowed with extract: due to extract part is N/A range
+getparms -ch  -~ 'func <name~i%%5-7> # part. extract' 6
+Warn_Msgs: 1 
+01 [RNAE]: Range not allowed with extract: ~i%%5-7 @ 1 [bad datatype]
+func=1  : FAILURE
+name=6
+#----------------------------------------------------------------------------
+# example 64 : Error SHOP [27] : Unrecognized SHIP option found: due to unrecognized SHIP options
+getparms -ch  -~ 'func {-d=.wx} # wrong SHIP options' 
+ErrorMsgs: 1
+01 [SHOP]: Unrecognized SHIP option found: following symbols are unrecognized -d=wx
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 66 : Error INDO [31] : IndOptions can't be p/o combos: pure & ind optn cannot be combos
+getparms -ch  -~ 'func {-i}{-f indp} # error INDO' -if
+ErrorMsgs: 1
+00 [INDO]: IndOptions can't be p/o combos: -if (-f matches -f )
+func=7  : UNSUPPT
+_i=1
+#----------------------------------------------------------------------------
+# example 67 : Error OIND [32] : Old Style IndParam is disabled: due to cmd-line OSIP is disabled
+getparms -ch -ci -~ 'func {-i|n|-f=file} # error OIND (OSIP p/o OR group cmdline fail)' -f=valu
+Warn_Msgs: 1 
+03 [OIND]: Old Style IndParam is disabled: "-f=valu" should be "-f valu"
+func=7  : UNSUPPT
+_f=1
+file="valu"
+#----------------------------------------------------------------------------
+# example 68 : Error MIOG [33] : More than 1 item in ORed group: due to multiple mixed optns rcvd
+getparms -ch  -~ 'func -i|m|--inp # error MIOG (multiple opts)' -i --inp
+ErrorMsgs: 1
+01 [MIOG]: More than 1 item in ORed group: -i --inp @ 1 3 
+func=5  : TOOMANY
+_i=1
+__inp=1
+#----------------------------------------------------------------------------
+# example 69 : Error MIOG [33] : More than 1 item in ORed group: due to parm & optn in mixed rcvd
+getparms -ch  -~ 'func m|-i|--input # error MIOG (bgn parm & opt)' val -i
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: val
+func=10 : UNKNOWN
+_i=1
+#----------------------------------------------------------------------------
+# example 70 : Error MIOG [33] : More than 1 item in ORed group: due to parm & optn in mixed rcvd
+getparms -ch  -~ 'func -j m|-i|--input # error MIOG (bgn parm & opts)' val -j -i
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: val
+func=10 : UNKNOWN
+_j=1
+_i=1
+#----------------------------------------------------------------------------
+# example 71 : Error MIOG [33] : More than 1 item in ORed group: due to multiple indp are receive
+getparms -ch -ccs -~ 'func <-f|--files ifile tfile ofile> # more info' -f 1.txt 2.txt 3.txt --files in.txt tmp.txt out.txt
+ErrorMsgs: 1
+01 [MIOG]: More than 1 item in ORed group: -f --files @ 1 2 
+valid[0]: func=5  : TOOMANY
+valid[1]: _f=1
+valid[1]: __files=1
+multi[2]: ifile="1.txt=in.txt"
+multi[2]: tfile="2.txt=tmp.txt"
+multi[2]: ofile="3.txt=out.txt"
+#----------------------------------------------------------------------------
+# example 72 : Error MIOG [33] : More than 1 item in ORed group: due to multiple opt in ORed rcvd
+getparms -ch -cs -~ 'func <-f|--files ifile tfile ofile> # error MIOG (indp & indp)' --files in.txt tmp.txt out.txt -f
+ErrorMsgs: 1
+01 [MIOG]: More than 1 item in ORed group: -f --files @ 1 2 
+valid[0]: func=5  : TOOMANY
+valid[1]: _f=1
+valid[1]: __files=1
+valid[1]: ifile="in.txt"
+valid[1]: tfile="tmp.txt"
+valid[1]: ofile="out.txt"
+#----------------------------------------------------------------------------
+# example 73 : Error MIOG [33] : More than 1 item in ORed group: due to multiple opt in ORed rcvd
+getparms -ch -ccs -~ 'func <-f|--files ifile tfile ofile> # more info' -f in.txt tmp.txt out.txt --files
+ErrorMsgs: 1
+01 [MIOG]: More than 1 item in ORed group: -f --files @ 1 2 
+valid[0]: func=5  : TOOMANY
+valid[1]: _f=1
+valid[1]: __files=1
+valid[1]: ifile="in.txt"
+valid[1]: tfile="tmp.txt"
+valid[1]: ofile="out.txt"
+#----------------------------------------------------------------------------
+# example 74 : Error MSOR [34] : Multiple same options received: due to same opt rcvd but not all
+getparms -ch  -~ 'func {-j} {-i} # error MSOR (same opt not all)' -i -i
+ErrorMsgs: 1
+02 [MSOR]: Multiple same options received: -i @ 0,1
+func=5  : TOOMANY
+_i=2
+#----------------------------------------------------------------------------
+# example 75 : Error MSOR [34] : Multiple same options received: due to same option but no others
+getparms -ch  -~ 'func {-i} m # error MSOR (same opt no other opts)' -i m -i
+ErrorMsgs: 1
+01 [MSOR]: Multiple same options received: -i @ 0,2
+func=5  : TOOMANY
+_i=2
+m="m"
+#----------------------------------------------------------------------------
+# example 76 : Error MSOR [34] : Multiple same options received: due to same indp item rcvd twice
+getparms -ch  -~ 'func -f=file # error MSOR (multiple ind. parms)' -f f1 -f f2
+ErrorMsgs: 1
+01 [MSOR]: Multiple same options received: -f received 2x @ 0,2
+func=5  : TOOMANY
+_f=2
+file="f1=f2"
+#----------------------------------------------------------------------------
+# example 77 : Error MSOR [34] : Multiple same options received: due to multiple end options rcvd
+getparms -ch  -~ 'func {-i} m n # error MSOR (multiple end of opts)' -i -- m -- n
+ErrorMsgs: 1
+01 [MSOR]: Multiple same options received: -- @ 1,3
+func=5  : TOOMANY
+_i=1
+m="m"
+n="n"
+#----------------------------------------------------------------------------
+# example 78 : Error MSOR [34] : Multiple same options received: due to combo & single optns rcvd
+getparms -ch  -~ 'func {-i}{-j} # error MSOR (same combo opt repeated)' -i -ji
+ErrorMsgs: 1
+01 [MSOR]: Multiple same options received: -i @ 0,1
+func=5  : TOOMANY
+_i=2
+_j=1
+#----------------------------------------------------------------------------
+# example 79 : Error MSOR [34] : Multiple same options received: due to repeated single combo opt
+getparms -ch  -~ 'func {-i}{-j} # error MSOR (same single combo opt repeated)' -iji
+ErrorMsgs: 1
+01 [MSOR]: Multiple same options received: -i @ 0,0
+func=5  : TOOMANY
+_i=2
+_j=1
+#----------------------------------------------------------------------------
+# example 80 : Error MSOR [34] : Multiple same options received: due to repeated double combo opt
+getparms -ch  -~ 'func -oa {-ob} # error MSOR (same double combo opt repeated)' -oaba
+ErrorMsgs: 1
+01 [MSOR]: Multiple same options received: -oa @ 0,0
+func=5  : TOOMANY
+_oa=2
+_ob=1
+#----------------------------------------------------------------------------
+# example 81 : Error PFER [35] : Parameter format doesn't match: due to bgn parm format not lower
+getparms -ch  -~ 'func bgn~s- -o|lnk~s- end~s- # error PFER (begin parm [1c])' Bgn lnk end
+ErrorMsgs: 1
+01 [PFER]: Parameter format doesn't match: bad mismatch, s/b: ~s- [24:string: s[a-z~+-]] was: bgn='Bgn'
+func=6  : MISMTCH
+bgn="Bgn"
+lnk="lnk"
+end="end"
+#----------------------------------------------------------------------------
+# example 82 : Error PFER [35] : Parameter format doesn't match: due to mix parm format not upper
+getparms -ch  -~ 'func bgn~s- -o|lnk~s+ end~s- # error PFER (links parm [2f])' bgn Lnk end
+ErrorMsgs: 1
+03 [PFER]: Parameter format doesn't match: bad mismatch, s/b: ~s+ [24:string: s[a-z~+-]] was: lnk='Lnk'
+func=6  : MISMTCH
+bgn="bgn"
+lnk="Lnk"
+end="end"
+#----------------------------------------------------------------------------
+# example 83 : Error PFER [35] : Parameter format doesn't match: due to end parm format not lower
+getparms -ch  -~ 'func bgn~s- -o|lnk~s- end~s- # error PFER (trail parm [3c])' bgn lnk End
+ErrorMsgs: 1
+04 [PFER]: Parameter format doesn't match: bad mismatch, s/b: ~s- [24:string: s[a-z~+-]] was: end='End'
+func=6  : MISMTCH
+bgn="bgn"
+lnk="lnk"
+end="End"
+#----------------------------------------------------------------------------
+# example 84 : Error PFER [35] : Parameter format doesn't match: due to ind parm format not lower
+getparms -ch  -~ 'func -i=parm~s- # error PFER (not all lowercase)' -i Mixed
+ErrorMsgs: 2
+02 [PFER]: Parameter format doesn't match: ind bad mismatch, s/b: ~s- [24:string: s[a-z~+-]] was: parm='Mixed'
+02 [PFER]: Parameter format doesn't match: bad mismatch, s/b: ~s- [24:string: s[a-z~+-]] was: parm='Mixed'
+func=6  : MISMTCH
+_i=1
+parm="Mixed"
+#----------------------------------------------------------------------------
+# example 85 : Error REQD [36] : Required item was not received: due to a missing required param.
+getparms -ch  -~ 'func parm # error REQD (miss required parm)' 
+ErrorMsgs: 1
+01 [REQD]: Required item was not received: parm @ 1
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 86 : Error REQD [36] : Required item was not received: due to a missing required option
+getparms -ch  -~ 'func --long # error REQD (miss required opts)' 
+ErrorMsgs: 1
+01 [REQD]: Required item was not received: --long @ 1
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 87 : Error REQD [36] : Required item was not received: due to a missing required indprm
+getparms -ch  -~ 'func <-i in> # error REQD (miss required ind optn)' 
+ErrorMsgs: 1
+01 [REQD]: Required item was not received: ind opts: -i
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 88 : Error REQD [36] : Required item was not received: due to a missing required mixed 
+getparms -ch  -~ 'func -a|-b|n # error REQD (missing required mixed)' 
+ErrorMsgs: 1
+01 [REQD]: Required item was not received: ored: -a -b n @ 1 2 3 
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 89 : Error RVOR [37] : Received Value is Out of Range: due to an int parm out of range 
+getparms -ch  -~ 'func parm~i@5-7 # error RVOR (out of range)' 4
+ErrorMsgs: 1
+01 [RVOR]: Received Value is Out of Range: out of range, s/b: ~i@5-7 [18:pos/neg. integers] was: parm='4'
+func=8  : MISORDR
+parm=4
+#----------------------------------------------------------------------------
+# example 90 : Error RVOR [37] : Received Value is Out of Range: due to positive percent rcvd neg
+getparms -ch  -~ 'func -f=item~%+50 # error RVOR (invalid percent: neg s/b pos)' -f -1
+ErrorMsgs: 2
+02 [RVOR]: Received Value is Out of Range: ind out of range, s/b: ~%0-50 [22:num% 0-val|-val-0] was: item='-1'
+02 [RVOR]: Received Value is Out of Range: out of range, s/b: ~%0-50 [22:num% 0-val|-val-0] was: item='-1'
+func=8  : MISORDR
+_f=1
+item=-1
+#----------------------------------------------------------------------------
+# example 91 : Error RVOR [37] : Received Value is Out of Range: due to percent rcvd out of range
+getparms -ch  -~ 'func -f=item~% # error RVOR   (invalid percent: out of range)' -f 101
+ErrorMsgs: 2
+02 [RVOR]: Received Value is Out of Range: ind out of range, s/b: ~%0-100 [22:num% 0-val|-val-0] was: item='101'
+02 [RVOR]: Received Value is Out of Range: out of range, s/b: ~%0-100 [22:num% 0-val|-val-0] was: item='101'
+func=8  : MISORDR
+_f=1
+item=101
+#----------------------------------------------------------------------------
+# example 92 : Error RVOR [37] : Received Value is Out of Range: due to indparm percent range err
+getparms -ch  -~ 'func -f=item~%10-50 # error RVOR (inv. percent: out of range)' -f 5
+ErrorMsgs: 2
+02 [RVOR]: Received Value is Out of Range: ind out of range, s/b: ~%10-50 [22:num% 0-val|-val-0] was: item='5'
+02 [RVOR]: Received Value is Out of Range: out of range, s/b: ~%10-50 [22:num% 0-val|-val-0] was: item='5'
+func=8  : MISORDR
+_f=1
+item=5
+#----------------------------------------------------------------------------
+# example 93 : Error RWEV [38] : Received Wrong Enumerate Value: due to a bad received enum value
+getparms -ch  -~ 'func parm~s@Mon@Tue@Thu # error RWEV (bad enum)' Wed
+ErrorMsgs: 1
+01 [RWEV]: Received Wrong Enumerate Value: bad enum val, s/b: ~s@Mon@Tue@Thu [24:string: s[a-z~+-]] was: parm='Wed'
+func=4  : NOTSPEC
+parm="Wed"
+#----------------------------------------------------------------------------
+# example 94 : Error RWEV [38] : Received Wrong Enumerate Value: due to enums are N/A for partial
+getparms -ch  -~ 'func <name~s%bgn@mid@end> # error RWEV (ENUM N/A for Partial)' mid
+ErrorMsgs: 1
+01 [RWEV]: Received Wrong Enumerate Value: bad enum val, s/b: ~s%~bgn@mid@end~ [24:string: s[a-z~+-]] was: name='mid'
+func=4  : NOTSPEC
+name="mid"
+#----------------------------------------------------------------------------
+# example 95 : Error SIPI [39] : Short Hand Ind Parm bad format: due to received SHIP had letters
+getparms -ch  -~ 'func -d= # error SIPI (letters)' -das
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='as'
+func=9  : ILLFORM
+_d="as"
+#----------------------------------------------------------------------------
+# example 96 : Error SIPI [39] : Short Hand Ind Parm bad format: due to rcvd SHIP w/ no lead zero
+getparms -ch  -~ 'func -d= # error SIPI (non-int, no lead 0)' -d.2
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='.2'
+func=9  : ILLFORM
+_d=".2"
+#----------------------------------------------------------------------------
+# example 97 : Error SIPI [39] : Short Hand Ind Parm bad format: due to SHIP combo is not allowed
+getparms -ch  -~ 'func (-d= -e=) # error SIPI (SHIP combo N/A)' -de5
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='e5'
+func=9  : ILLFORM
+_d="e5"
+#----------------------------------------------------------------------------
+# example 98 : Error SIPI [39] : Short Hand Ind Parm bad format: due to received SHIP double zero
+getparms -ch  -~ 'func -d= # error SIPI (double 0)' -d00
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='00'
+func=9  : ILLFORM
+_d="00"
+#----------------------------------------------------------------------------
+# example 99 : Error SIPI [39] : Short Hand Ind Parm bad format: due to received SHIP w/ 2 ranges
+getparms -ch  -~ 'func -d= # error SIPI (2 ranges)' -d1-3-5
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='1-3-5'
+func=9  : ILLFORM
+_d="1-3-5"
+#----------------------------------------------------------------------------
+# example 100: Error SIPI [39] : Short Hand Ind Parm bad format: due to rcvd SHIP range w/ lead 0
+getparms -ch  -~ 'func -d= # error SIPI (ranges lead 0)' -d1-03
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='1-03'
+func=9  : ILLFORM
+_d="1-03"
+#----------------------------------------------------------------------------
+# example 101: Error SIPI [39] : Short Hand Ind Parm bad format: due to rcvd SHIP enums w/ lead 0
+getparms -ch  -~ 'func -d= # error SIPI (enums lead 0)' -d1,03
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='1,03'
+func=9  : ILLFORM
+_d="1,03"
+#----------------------------------------------------------------------------
+# example 102: Error SIPI [39] : Short Hand Ind Parm bad format: due to rcvd SHIP with doubledash
+getparms -ch  -~ 'func -d= # error SIPI (-d=--)' -d--
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='--'
+func=9  : ILLFORM
+_d="--"
+#----------------------------------------------------------------------------
+# example 103: Error SIPI [39] : Short Hand Ind Parm bad format: due to rcvd SHIP with minus plus
+getparms -ch  -~ 'func -d= # error SIPI (-d=-+)' -d-+
+ErrorMsgs: 1
+01 [SIPI]: Short Hand Ind Parm bad format: opt bad SHIP form: _d='-+'
+func=9  : ILLFORM
+_d="-+"
+#----------------------------------------------------------------------------
+# example 104: Error UMSG [40] : User message is missing or bad: due to missing reqd User message
+getparms -ch -cu -~ 'func   # error UMSG' 
+03 [UMSG]: User message is missing or bad: "-~ func   # error UMSG"
+#----------------------------------------------------------------------------
+# example 105: Error UNKC [41] : Unknown combo opt was received: due to rcvd unknown combo option
+getparms -ch  -~ 'func {-i -j} # error UNKC (extra opt)' -jin
+ErrorMsgs: 1
+00 [UNKC]: Unknown combo opt was received: -jin has unfound: -n
+func=10 : UNKNOWN
+_i=1
+_j=1
+#----------------------------------------------------------------------------
+# example 106: Error UNKI [42] : Unknown parameter was received: due to unknown option (w/o optn)
+getparms -ch  -~ 'func  # error UNKI (without opt)' -u
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: -u
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 107: Error UNKI [42] : Unknown parameter was received: due to unknown option (with opt)
+getparms -ch  -~ 'func {-i} # error UNKI (with opt)' -u
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: -u
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 108: Error UNKI [42] : Unknown parameter was received: due receiving unknown parameters
+getparms -ch  -~ 'func   # error UNKI' unkn
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: unkn
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 109: Error UNKI [42] : Unknown parameter was received: due bad characters in opt's name
+getparms -ch -on -~ 'func -v # error UNKI' -v:alt
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: -v:alt
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 110: Error UNKI [42] : Unknown parameter was received: due string begin with opt's name
+getparms -ch -on -~ 'func -v # error UNKI' -valt
+ErrorMsgs: 1
+00 [UNKI]: Unknown parameter was received: -valt
+func=10 : UNKNOWN
+#----------------------------------------------------------------------------
+# example 111: Error XNAM [29] : Exported Help var. name is bad: due to an undefined exported var
+getparms -ch  -~ '.' 
+00 [XNAM]: Exported Help var. name is bad: no varname was given
+#----------------------------------------------------------------------------
+# example 112: Error XNAM [29] : Exported Help var. name is bad: due to an undefined exported var
+getparms -ch  -~ '.HELP.VAR' 
+00 [XNAM]: Exported Help var. name is bad: "HELP.VAR" not a valid varname
+#----------------------------------------------------------------------------
+# example 113: Error XNAM [29] : Exported Help var. name is bad: due to an undefined exported var
+getparms -ch  -~ '.__HELP__' 
+00 [XNAM]: Exported Help var. name is bad: collides with int. var: __HELP__
+#----------------------------------------------------------------------------
+# example 114: Error XNAM [29] : Exported Help var. name is bad: due to an undefined exported var
+getparms -ch  -~ '.HELPVAR' 
+00 [XNAM]: Exported Help var. name is bad: "HELPVAR" not an exported var
+#----------------------------------------------------------------------------
+# TestErrored Examples End
+#----------------------------------------------------------------------------

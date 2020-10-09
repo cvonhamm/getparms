@@ -1,0 +1,437 @@
+#----------------------------------------------------------------------------
+# TestDataTyp Examples Bgn [file: getparms.xdat.txt] [getparms ver. 1.0.4] [Max:81]
+#----------------------------------------------------------------------------
+# example 1 : Test IP4 decimal
+getparms.sh -cces -~ 'func <item~ip4d>' 190.170.150.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="190.170.150.1"
+#----------------------------------------------------------------------------
+# example 2 : Test IP4 hexadec
+getparms.sh -cces -~ 'func <item~ip4h>' BE.AA.96.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="BE.AA.96.1"
+#----------------------------------------------------------------------------
+# example 3 : Test IP6 decimal
+getparms.sh -cces -~ 'func <item~ip6d>' 32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1"
+#----------------------------------------------------------------------------
+# example 4 : Test IP6 hexadec
+getparms.sh -cces -~ 'func <item~ip6h>' 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+valid[0]: func=0  : SUCCESS
+valid[1]: item="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+#----------------------------------------------------------------------------
+# example 5 : Test IP4 numeral
+getparms.sh -cces -~ 'func <item~ip4>' 190.170.150.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="190.170.150.1"
+#----------------------------------------------------------------------------
+# example 6 : Test IP6 numeral
+getparms.sh -cces -~ 'func <item~ip6>' 32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1"
+#----------------------------------------------------------------------------
+# example 7 : Test IPn decimal
+getparms.sh -cces -~ 'func <item~ipd>' 32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1"
+#----------------------------------------------------------------------------
+# example 8 : Test IPn hexadec
+getparms.sh -cces -~ 'func <item~iph>' 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+valid[0]: func=0  : SUCCESS
+valid[1]: item="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+#----------------------------------------------------------------------------
+# example 9 : Test IPn generic
+getparms.sh -cces -~ 'func <item~ipg>' 32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1
+valid[0]: func=0  : SUCCESS
+valid[1]: item="32.1.219.8.10.11.18.240.0.0.0.0.0.0.0.1"
+#----------------------------------------------------------------------------
+# example 10: Test Mac hexadec
+getparms.sh -cces -~ 'func <item~mac>' 70:07:81:18:92:29
+valid[0]: func=0  : SUCCESS
+valid[1]: item="70:07:81:18:92:29"
+#----------------------------------------------------------------------------
+# example 11: Test Email address
+getparms.sh -cces -~ 'func <item~e>' My.Name@google.com
+valid[0]: func=0  : SUCCESS
+valid[1]: item="My.Name@google.com"
+#----------------------------------------------------------------------------
+# example 12: Test url or website
+getparms.sh -cces -~ 'func <item~u>' www.url-with-querystring.com/?url=has-querystring
+valid[0]: func=0  : SUCCESS
+valid[1]: item="www.url-with-querystring.com/?url=has-querystring"
+#----------------------------------------------------------------------------
+# example 13: Test Parm pos number
+getparms.sh -cces -~ 'func <item~np>' +5901.36
+valid[0]: func=0  : SUCCESS
+valid[1]: item=+5901.36
+#----------------------------------------------------------------------------
+# example 14: Test Parm neg number
+getparms.sh -cces -~ 'func <item~nn>' -278.0
+valid[0]: func=0  : SUCCESS
+valid[1]: item=-278.0
+#----------------------------------------------------------------------------
+# example 15: Test Parm any number
+getparms.sh -cces -~ 'func <item~n>' +5901.36
+valid[0]: func=0  : SUCCESS
+valid[1]: item=+5901.36
+#----------------------------------------------------------------------------
+# example 16: Test Parm pos integer
+getparms.sh -cces -~ 'func <item~ip>' +35
+valid[0]: func=0  : SUCCESS
+valid[1]: item=+35
+#----------------------------------------------------------------------------
+# example 17: Test Parm neg integer
+getparms.sh -cces -~ 'func <item~in>' -27
+valid[0]: func=0  : SUCCESS
+valid[1]: item=-27
+#----------------------------------------------------------------------------
+# example 18: Test Parm any integer
+getparms.sh -cces -~ 'func <item~i>' +35
+valid[0]: func=0  : SUCCESS
+valid[1]: item=+35
+#----------------------------------------------------------------------------
+# example 19: Test Parm unsignedint
+getparms.sh -cces -~ 'func <item~#>' 160
+valid[0]: func=0  : SUCCESS
+valid[1]: item=160
+#----------------------------------------------------------------------------
+# example 20: Test Parm zero in 0|1
+getparms.sh -cces -~ 'func <item~B>' 0
+valid[0]: func=0  : SUCCESS
+valid[1]: item=0
+#----------------------------------------------------------------------------
+# example 21: Test Parm ones in 0|1
+getparms.sh -cces -~ 'func <item~B>' 1
+valid[0]: func=0  : SUCCESS
+valid[1]: item=1
+#----------------------------------------------------------------------------
+# example 22: Test Parm boolean int
+getparms.sh -cces -~ 'func <item~b>' 01101
+valid[0]: func=0  : SUCCESS
+valid[1]: item=01101
+#----------------------------------------------------------------------------
+# example 23: Test Parm percentage
+getparms.sh -cces -~ 'func <item~%>' 50.5
+valid[0]: func=0  : SUCCESS
+valid[1]: item=50.5
+#----------------------------------------------------------------------------
+# example 24: Test Parm 0xHex integer
+getparms.sh -cces -~ 'func <item~h>' 0xFE
+valid[0]: func=0  : SUCCESS
+valid[1]: item=0xFE
+#----------------------------------------------------------------------------
+# example 25: Test Parm  xHex integer
+getparms.sh -cces -~ 'func <item~h>' xDC
+valid[0]: func=0  : SUCCESS
+valid[1]: item=xDC
+#----------------------------------------------------------------------------
+# example 26: Test Parm a hex integer
+getparms.sh -cces -~ 'func <item~h>' ab
+valid[0]: func=0  : SUCCESS
+valid[1]: item=ab
+#----------------------------------------------------------------------------
+# example 27: Test Indp pos number
+getparms.sh -cces -~ 'func <-f item~np>' -f +5901.36
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+5901.36
+#----------------------------------------------------------------------------
+# example 28: Test Indp neg number
+getparms.sh -cces -~ 'func <-f item~nn>' -f -278.0
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=-278.0
+#----------------------------------------------------------------------------
+# example 29: Test Indp any number
+getparms.sh -cces -~ 'func <-f item~n>' -f +5901.36
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+5901.36
+#----------------------------------------------------------------------------
+# example 30: Test Indp pos integer
+getparms.sh -cces -~ 'func <-f item~ip>' -f +35
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+35
+#----------------------------------------------------------------------------
+# example 31: Test Indp neg integer
+getparms.sh -cces -~ 'func <-f item~in>' -f -27
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=-27
+#----------------------------------------------------------------------------
+# example 32: Test Indp any integer
+getparms.sh -cces -~ 'func <-f item~i>' -f +35
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+35
+#----------------------------------------------------------------------------
+# example 33: Test Indp unsignedint
+getparms.sh -cces -~ 'func <-f item~#>' -f 160
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=160
+#----------------------------------------------------------------------------
+# example 34: Test Indp zero in 0|1
+getparms.sh -cces -~ 'func <-f item~B>' -f 0
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=0
+#----------------------------------------------------------------------------
+# example 35: Test Indp ones in 0|1
+getparms.sh -cces -~ 'func <-f item~B>' -f 1
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=1
+#----------------------------------------------------------------------------
+# example 36: Test Indp boolean int
+getparms.sh -cces -~ 'func <-f item~b>' -f 01101
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=01101
+#----------------------------------------------------------------------------
+# example 37: Test Indp percentage
+getparms.sh -cces -~ 'func <-f item~%>' -f 50.5
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=50.5
+#----------------------------------------------------------------------------
+# example 38: Test Indp 0xHex integer
+getparms.sh -cces -~ 'func <-f item~h>' -f 0xFE
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=0xFE
+#----------------------------------------------------------------------------
+# example 39: Test Indp  xHex integer
+getparms.sh -cces -~ 'func <-f item~h>' -f xDC
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=xDC
+#----------------------------------------------------------------------------
+# example 40: Test Indp a hex integer
+getparms.sh -cces -~ 'func <-f item~h>' -f ab
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=ab
+#----------------------------------------------------------------------------
+# example 41: Test OSIP pos number
+getparms.sh -cces -~ 'func <-f=item~np>' -f=+5901.36
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+5901.36
+#----------------------------------------------------------------------------
+# example 42: Test OSIP neg number
+getparms.sh -cces -~ 'func <-f=item~nn>' -f=-278.0
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=-278.0
+#----------------------------------------------------------------------------
+# example 43: Test OSIP any number
+getparms.sh -cces -~ 'func <-f=item~n>' -f=+5901.36
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+5901.36
+#----------------------------------------------------------------------------
+# example 44: Test OSIP pos integer
+getparms.sh -cces -~ 'func <-f=item~ip>' -f=+35
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+35
+#----------------------------------------------------------------------------
+# example 45: Test OSIP neg integer
+getparms.sh -cces -~ 'func <-f=item~in>' -f=-27
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=-27
+#----------------------------------------------------------------------------
+# example 46: Test OSIP any integer
+getparms.sh -cces -~ 'func <-f=item~i>' -f=+35
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=+35
+#----------------------------------------------------------------------------
+# example 47: Test OSIP unsignedint
+getparms.sh -cces -~ 'func <-f=item~#>' -f=160
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=160
+#----------------------------------------------------------------------------
+# example 48: Test OSIP zero in 0|1
+getparms.sh -cces -~ 'func <-f=item~B>' -f=0
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=0
+#----------------------------------------------------------------------------
+# example 49: Test OSIP ones in 0|1
+getparms.sh -cces -~ 'func <-f=item~B>' -f=1
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=1
+#----------------------------------------------------------------------------
+# example 50: Test OSIP boolean int
+getparms.sh -cces -~ 'func <-f=item~b>' -f=01101
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=01101
+#----------------------------------------------------------------------------
+# example 51: Test OSIP 0xHex integer
+getparms.sh -cces -~ 'func <-f=item~h>' -f=0xFE
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=0xFE
+#----------------------------------------------------------------------------
+# example 52: Test OSIP  xHex integer
+getparms.sh -cces -~ 'func <-f=item~h>' -f=xDC
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=xDC
+#----------------------------------------------------------------------------
+# example 53: Test OSIP a hex integer
+getparms.sh -cces -~ 'func <-f=item~h>' -f=ab
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=ab
+#----------------------------------------------------------------------------
+# example 54: Test OSIP percentage
+getparms.sh -cces -~ 'func <-f=item~%>' -f=50.5
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=50.5
+#----------------------------------------------------------------------------
+# example 55: Test OSIP percent +50
+getparms.sh -cces -~ 'func <-f=item~%+50>' -f=50
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=50
+#----------------------------------------------------------------------------
+# example 56: Test OSIP percent -50
+getparms.sh -cces -~ 'func <-f=item~%-50>' -f=-25
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=-25
+#----------------------------------------------------------------------------
+# example 57: Test OSIP hid percent
+getparms.sh -cces -~ 'func <-f=item~10>' -f=7
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=7
+#----------------------------------------------------------------------------
+# example 58: Test OSIP num percent
+getparms.sh -cces -~ 'func <-f=item~5.0>' -f=2.5
+valid[0]: func=0  : SUCCESS
+valid[1]: _f=1
+valid[1]: item=2.5
+#----------------------------------------------------------------------------
+# example 60: Test dir|file rw
+getparms.sh -cces -~ 'func <item~prw>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 61: Test dir|file wr
+getparms.sh -cces -~ 'func <item~pw>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 62: Test dir|file rd
+getparms.sh -cces -~ 'func <item~pr>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 63: Test is a parent
+getparms.sh -cces -~ 'func <item~pu>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 64: Test dir|file not
+getparms.sh -cces -~ 'func <item~pn>' __asldkfjlsdkj__/__asldkfjlsdkj__
+valid[0]: func=0  : SUCCESS
+valid[1]: item="__asldkfjlsdkj__/__asldkfjlsdkj__"
+#----------------------------------------------------------------------------
+# example 65: Test dir|file is
+getparms.sh -cces -~ 'func <item~p>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 66: Test dir is rw
+getparms.sh -cces -~ 'func <item~drw>' //Users/charles2/bin
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin"
+#----------------------------------------------------------------------------
+# example 67: Test dir is wr
+getparms.sh -cces -~ 'func <item~dw>' //Users/charles2/bin
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin"
+#----------------------------------------------------------------------------
+# example 68: Test dir is rd
+getparms.sh -cces -~ 'func <item~dr>' //Users/charles2/bin
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin"
+#----------------------------------------------------------------------------
+# example 69: Test dir path is
+getparms.sh -cces -~ 'func <item~du>' //Users/charles2/bin
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin"
+#----------------------------------------------------------------------------
+# example 70: Test dir not is
+getparms.sh -cces -~ 'func <item~dn>' __asldkfjlsdkj__/__asldkfjlsdkj__
+valid[0]: func=0  : SUCCESS
+valid[1]: item="__asldkfjlsdkj__/__asldkfjlsdkj__"
+#----------------------------------------------------------------------------
+# example 71: Test dir exists
+getparms.sh -cces -~ 'func <item~d>' //Users/charles2/bin
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin"
+#----------------------------------------------------------------------------
+# example 72: Test file is wx
+getparms.sh -cces -~ 'func <item~fwx>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 73: Test file is rx
+getparms.sh -cces -~ 'func <item~frx>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 74: Test file is ex
+getparms.sh -cces -~ 'func <item~fx>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 75: Test file is rw
+getparms.sh -cces -~ 'func <item~frw>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 76: Test file is wr
+getparms.sh -cces -~ 'func <item~fw>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 77: Test file is rd
+getparms.sh -cces -~ 'func <item~fr>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 78: Test file is rwx
+getparms.sh -cces -~ 'func <item~frwx>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 79: Test path exists
+getparms.sh -cces -~ 'func <item~fu>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# example 80: Test file not is
+getparms.sh -cces -~ 'func <item~fn>' __asldkfjlsdkj__
+valid[0]: func=0  : SUCCESS
+valid[1]: item="__asldkfjlsdkj__"
+#----------------------------------------------------------------------------
+# example 81: Test file exists
+getparms.sh -cces -~ 'func <item~f>' //Users/charles2/bin/getparms.sh
+valid[0]: func=0  : SUCCESS
+valid[1]: item="//Users/charles2/bin/getparms.sh"
+#----------------------------------------------------------------------------
+# TestDataTyp Examples End
+#----------------------------------------------------------------------------

@@ -1,0 +1,450 @@
+#----------------------------------------------------------------------------
+# TestMatches Examples Bgn [file: getparms.xmat.txt] [getparms ver. 1.0.4] [Max:97]
+#----------------------------------------------------------------------------
+# example 1 : Exact Matches
+getparms  -ccs -~ 'func <name~s@bgn.mid.end>    # Exact Matches' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn.mid.end"
+#----------------------------------------------------------------------------
+# example 2 : Partial Match
+getparms  -ccs -~ 'func <name~s%bgn.mid.end>    # Partial Match' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn.mid.end"
+#----------------------------------------------------------------------------
+# example 3 : Partial Match
+getparms  -ccs -~ 'func <name~s%~mid~>          # Partial Match' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn.mid.end"
+#----------------------------------------------------------------------------
+# example 4 : Partial Match
+getparms  -ccs -~ 'func <name~s%bgn~>           # Partial Match' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn.mid.end"
+#----------------------------------------------------------------------------
+# example 5 : Partial Match
+getparms  -ccs -~ 'func <name~s%~end>           # Partial Match' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn.mid.end"
+#----------------------------------------------------------------------------
+# example 6 : Extract Tests
+getparms  -ccs -~ 'func <name~s%%bgn.mid.end>   # Extract Tests' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn.mid.end"
+#----------------------------------------------------------------------------
+# example 7 : Extract Tests
+getparms  -ccs -~ 'func <name~s%%~mid~>         # Extract Tests' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="mid"
+#----------------------------------------------------------------------------
+# example 8 : Extract Tests
+getparms  -ccs -~ 'func <name~s%%bgn~>          # Extract Tests' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn"
+#----------------------------------------------------------------------------
+# example 9 : Extract Tests
+getparms  -ccs -~ 'func <name~s%%~end>          # Extract Tests' bgn.mid.end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="end"
+#----------------------------------------------------------------------------
+# example 10: Enumerate Test
+getparms  -ccs -~ 'func <name~s@bgn@mid@end>    # Enumerate Test' bgn
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bgn"
+#----------------------------------------------------------------------------
+# example 11: Enumerate Test
+getparms  -ccs -~ 'func <name~s@bgn@mid@end>    # Enumerate Test' mid
+valid[0]: func=0  : SUCCESS
+valid[1]: name="mid"
+#----------------------------------------------------------------------------
+# example 12: Enumerate Test
+getparms  -ccs -~ 'func <name~s@bgn@mid@end>    # Enumerate Test' end
+valid[0]: func=0  : SUCCESS
+valid[1]: name="end"
+#----------------------------------------------------------------------------
+# example 13: num exact matches all
+getparms  -ccs -~ 'func name~i@5                # num exact matches all' 5
+valid[0]: func=0  : SUCCESS
+valid[1]: name=5
+#----------------------------------------------------------------------------
+# example 14: num exact matches bgn
+getparms  -ccs -~ 'func name~i@5~               # num exact matches bgn' 56
+valid[0]: func=0  : SUCCESS
+valid[1]: name=56
+#----------------------------------------------------------------------------
+# example 15: num exact matches mid
+getparms  -ccs -~ 'func name~i@~5~              # num exact matches mid' 456
+valid[0]: func=0  : SUCCESS
+valid[1]: name=456
+#----------------------------------------------------------------------------
+# example 16: num exact matches end
+getparms  -ccs -~ 'func name~i@~5               # num exact matches end' 45
+valid[0]: func=0  : SUCCESS
+valid[1]: name=45
+#----------------------------------------------------------------------------
+# example 17: num part. matches all
+getparms  -ccs -~ 'func name~i%5                # num part. matches all' 5
+valid[0]: func=0  : SUCCESS
+valid[1]: name=5
+#----------------------------------------------------------------------------
+# example 18: num part. matches bgn
+getparms  -ccs -~ 'func name~i%5~               # num part. matches bgn' 56
+valid[0]: func=0  : SUCCESS
+valid[1]: name=56
+#----------------------------------------------------------------------------
+# example 19: num part. matches mid
+getparms  -ccs -~ 'func name~i%~5~              # num part. matches mid' 456
+valid[0]: func=0  : SUCCESS
+valid[1]: name=456
+#----------------------------------------------------------------------------
+# example 20: num part. matches end
+getparms  -ccs -~ 'func name~i%~5               # num part. matches end' 45
+valid[0]: func=0  : SUCCESS
+valid[1]: name=45
+#----------------------------------------------------------------------------
+# example 21: num exact extract all
+getparms  -ccs -~ 'func name~i@@9876543210      # num exact extract all' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=9876543210
+#----------------------------------------------------------------------------
+# example 22: num exact extract bgn
+getparms  -ccs -~ 'func name~i@@987~            # num exact extract bgn' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=6543210
+#----------------------------------------------------------------------------
+# example 23: num exact extract mid
+getparms  -ccs -~ 'func name~i@@~654~           # num exact extract mid' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=987 3210
+#----------------------------------------------------------------------------
+# example 24: num exact extract end
+getparms  -ccs -~ 'func name~i@@~3210           # num exact extract end' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=987654
+#----------------------------------------------------------------------------
+# example 25: num exact get multi-mid
+getparms  -ccs -~ 'func name~i@@~23~            # num exact get multi-mid' 12341235123
+valid[0]: func=0  : SUCCESS
+valid[1]: name=1 41 51
+#----------------------------------------------------------------------------
+# example 26: num part. extract all
+getparms  -ccs -~ 'func name~i%%9876543210      # num part. extract all' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=9876543210
+#----------------------------------------------------------------------------
+# example 27: num part. extract bgn
+getparms  -ccs -~ 'func name~i%%98.~            # num part. extract bgn' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=6543210
+#----------------------------------------------------------------------------
+# example 28: num part. extract mid
+getparms  -ccs -~ 'func name~i%%~65.~           # num part. extract mid' 9876543210
+valid[0]: func=0  : SUCCESS
+valid[1]: name=654
+#----------------------------------------------------------------------------
+# example 29: num part. extract end
+getparms  -ccs -~ 'func name~i%%~3210.          # num part. extract end' 98765432105
+valid[0]: func=0  : SUCCESS
+valid[1]: name=987654
+#----------------------------------------------------------------------------
+# example 30: num part. get multi-mid
+getparms  -ccs -~ 'func name~i%%~.23.~          # num part. get multi-mid' 12341235123
+valid[0]: func=0  : SUCCESS
+valid[1]: name=1234
+#----------------------------------------------------------------------------
+# example 31: str exact matches all
+getparms  -ccs -~ 'func name~s@prebookend       # str exact matches all' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 32: str exact matches bgn
+getparms  -ccs -~ 'func name~s@pre~             # str exact matches bgn' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 33: str exact matches mid
+getparms  -ccs -~ 'func name~s@~book~           # str exact matches mid' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 34: str exact matches end
+getparms  -ccs -~ 'func name~s@~end             # str exact matches end' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 35: str part. matches all
+getparms  -ccs -~ 'func name~s%prebookend       # str part. matches all' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 36: str part. matches bgn
+getparms  -ccs -~ 'func name~s%pre~             # str part. matches bgn' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 37: str part. matches mid
+getparms  -ccs -~ 'func name~s%~book~           # str part. matches mid' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 38: str part. matches end
+getparms  -ccs -~ 'func name~s%~end             # str part. matches end' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 39: str exact extract all
+getparms  -ccs -~ 'func name~s@@prebookend      # str exact extract all' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 40: str exact extract bgn
+getparms  -ccs -~ 'func name~s@@pre~            # str exact extract bgn' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bookend"
+#----------------------------------------------------------------------------
+# example 41: str exact extract mid
+getparms  -ccs -~ 'func name~s@@~book~          # str exact extract mid' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="pre end"
+#----------------------------------------------------------------------------
+# example 42: str exact extract end
+getparms  -ccs -~ 'func name~s@@~end            # str exact extract end' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebook"
+#----------------------------------------------------------------------------
+# example 43: str exact get multi-mid
+getparms  -ccs -~ 'func name~s@@~to~            # str exact get multi-mid' 1tomanyto1
+valid[0]: func=0  : SUCCESS
+valid[1]: name="1 many 1"
+#----------------------------------------------------------------------------
+# example 44: str exact extract all
+getparms  -ccs -~ 'func name~s%%prebookend      # str exact extract all' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="prebookend"
+#----------------------------------------------------------------------------
+# example 45: str exact extract bgn
+getparms  -ccs -~ 'func name~s%%pr.~            # str exact extract bgn' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="pre"
+#----------------------------------------------------------------------------
+# example 46: str exact extract mid
+getparms  -ccs -~ 'func name~s%%~boo.~          # str exact extract mid' prebookend
+valid[0]: func=0  : SUCCESS
+valid[1]: name="book"
+#----------------------------------------------------------------------------
+# example 47: str exact extract end
+getparms  -ccs -~ 'func name~s%%~end.           # str exact extract end' prebookend5
+valid[0]: func=0  : SUCCESS
+valid[1]: name="end5"
+#----------------------------------------------------------------------------
+# example 48: str exact get multi-mid
+getparms  -ccs -~ 'func name~s%%~to.~           # str exact get multi-mid' 1tomanyto1
+valid[0]: func=0  : SUCCESS
+valid[1]: name="tom"
+#----------------------------------------------------------------------------
+# example 49: extract letter ranges
+getparms  -ccs -~ 'func name~s%%~ma[l-n][x-z]~  # extract letter ranges' 1tomanyto1
+valid[0]: func=0  : SUCCESS
+valid[1]: name="many"
+#----------------------------------------------------------------------------
+# example 50: pos range num exact all
+getparms  -ccs -~ 'func name~i@5-7              # pos range num exact all' 6
+valid[0]: func=0  : SUCCESS
+valid[1]: name=6
+#----------------------------------------------------------------------------
+# example 51: neg range num exact bgn
+getparms  -ccs -~ 'func name~i@-7--5            # neg range num exact bgn' -6
+valid[0]: func=0  : SUCCESS
+valid[1]: name=-6
+#----------------------------------------------------------------------------
+# example 52: +/- range num exact mid
+getparms  -ccs -~ 'func name~i@-3-2             # +/- range num exact mid' 1
+valid[0]: func=0  : SUCCESS
+valid[1]: name=1
+#----------------------------------------------------------------------------
+# example 53: pos range num exact all
+getparms  -ccs -~ 'func name~i@5-7              # pos range num exact all' 6
+valid[0]: func=0  : SUCCESS
+valid[1]: name=6
+#----------------------------------------------------------------------------
+# example 55: +/- range num exact mid
+getparms  -ccs -~ 'func name~i@-3-2             # +/- range num exact mid' 1
+valid[0]: func=0  : SUCCESS
+valid[1]: name=1
+#----------------------------------------------------------------------------
+# example 56: uns range num exact end
+getparms  -ccs -~ 'func name~n@~5               # uns range num exact end' 45
+valid[0]: func=0  : SUCCESS
+valid[1]: name=45
+#----------------------------------------------------------------------------
+# example 57: pos range num part. all
+getparms  -ccs -~ 'func name~i%5-7              # pos range num part. all' 6
+valid[0]: func=0  : SUCCESS
+valid[1]: name=6
+#----------------------------------------------------------------------------
+# example 58: neg range num part. bgn
+getparms  -ccs -~ 'func name~i%-7--5            # neg range num part. bgn' -6
+valid[0]: func=0  : SUCCESS
+valid[1]: name=-6
+#----------------------------------------------------------------------------
+# example 59: +/- range num part. mid
+getparms  -ccs -~ 'func name~i%-3-2             # +/- range num part. mid' 1
+valid[0]: func=0  : SUCCESS
+valid[1]: name=1
+#----------------------------------------------------------------------------
+# example 60: pos range num part. all
+getparms  -ccs -~ 'func name~i%5-7              # pos range num part. all' 6
+valid[0]: func=0  : SUCCESS
+valid[1]: name=6
+#----------------------------------------------------------------------------
+# example 62: +/- range num part. mid
+getparms  -ccs -~ 'func name~i%-3-2             # +/- range num part. mid' 1
+valid[0]: func=0  : SUCCESS
+valid[1]: name=1
+#----------------------------------------------------------------------------
+# example 63: uns range num part. end
+getparms  -ccs -~ 'func name~n%~5               # uns range num part. end' 45
+valid[0]: func=0  : SUCCESS
+valid[1]: name=45
+#----------------------------------------------------------------------------
+# example 66: str range num exact low bgn
+getparms  -ccs -~ 'func name~s-@baby-cars       # str range num exact low bgn' baby
+valid[0]: func=0  : SUCCESS
+valid[1]: name="baby"
+#----------------------------------------------------------------------------
+# example 67: str range num exact low end
+getparms  -ccs -~ 'func name~s-@baby-cars       # str range num exact low end' cars
+valid[0]: func=0  : SUCCESS
+valid[1]: name="cars"
+#----------------------------------------------------------------------------
+# example 68: str range num exact low mid
+getparms  -ccs -~ 'func name~s-@baby-cars       # str range num exact low mid' bear
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bear"
+#----------------------------------------------------------------------------
+# example 69: str range num exact ins mid
+getparms  -ccs -~ 'func name~s~@baby-cars       # str range num exact ins mid' Bear
+valid[0]: func=0  : SUCCESS
+valid[1]: name="Bear"
+#----------------------------------------------------------------------------
+# example 70: str range num exact low bgn
+getparms  -ccs -~ 'func name~s~@baby-cars       # str range num exact low bgn' baby
+valid[0]: func=0  : SUCCESS
+valid[1]: name="baby"
+#----------------------------------------------------------------------------
+# example 71: str range num exact low end
+getparms  -ccs -~ 'func name~s~@baby-cars       # str range num exact low end' Cars
+valid[0]: func=0  : SUCCESS
+valid[1]: name="Cars"
+#----------------------------------------------------------------------------
+# example 72: str range num part. low bgn
+getparms  -ccs -~ 'func name~s-%baby-cars       # str range num part. low bgn' baby
+valid[0]: func=0  : SUCCESS
+valid[1]: name="baby"
+#----------------------------------------------------------------------------
+# example 73: str range num part. low end
+getparms  -ccs -~ 'func name~s-%baby-cars       # str range num part. low end' cars
+valid[0]: func=0  : SUCCESS
+valid[1]: name="cars"
+#----------------------------------------------------------------------------
+# example 74: str range num part. low mid
+getparms  -ccs -~ 'func name~s-%baby-cars       # str range num part. low mid' bear
+valid[0]: func=0  : SUCCESS
+valid[1]: name="bear"
+#----------------------------------------------------------------------------
+# example 75: str range num part. ins mid
+getparms  -ccs -~ 'func name~s~%baby-cars       # str range num part. ins mid' Bear
+valid[0]: func=0  : SUCCESS
+valid[1]: name="Bear"
+#----------------------------------------------------------------------------
+# example 76: str range num part. low bgn
+getparms  -ccs -~ 'func name~s~%baby-cars       # str range num part. low bgn' baby
+valid[0]: func=0  : SUCCESS
+valid[1]: name="baby"
+#----------------------------------------------------------------------------
+# example 77: str range num part. low end
+getparms  -ccs -~ 'func name~s~%baby-cars       # str range num part. low end' Cars
+valid[0]: func=0  : SUCCESS
+valid[1]: name="Cars"
+#----------------------------------------------------------------------------
+# example 80: end string no subtype
+getparms  -ccs -~ 'func {name~s@~.txt}          # end string no subtype' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.txt"
+#----------------------------------------------------------------------------
+# example 81: end string w/ subtype
+getparms  -ccs -~ 'func {name~sj-@~.txt}        # end string w/ subtype' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.txt"
+#----------------------------------------------------------------------------
+# example 82: end string exact case
+getparms  -ccs -~ 'func {name~sj~@~.C}          # end string exact case' file.C
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.C"
+#----------------------------------------------------------------------------
+# example 83: end string lower case
+getparms  -ccs -~ 'func {name~sj-@~".txt"}      # end string lower case' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.txt"
+#----------------------------------------------------------------------------
+# example 84: end string any case 1
+getparms  -ccs -~ 'func {name~sj~@~.C}          # end string any case 1' File.C
+valid[0]: func=0  : SUCCESS
+valid[1]: name="File.C"
+#----------------------------------------------------------------------------
+# example 85: end string any case 2
+getparms  -ccs -~ 'func {name~sj~@~.C}          # end string any case 2' File.c
+valid[0]: func=0  : SUCCESS
+valid[1]: name="File.c"
+#----------------------------------------------------------------------------
+# example 86: end string any case 3
+getparms  -ccs -~ 'func {name~sj~@~.C}          # end string any case 3' File.C
+valid[0]: func=0  : SUCCESS
+valid[1]: name="File.C"
+#----------------------------------------------------------------------------
+# example 87: end string any case 4
+getparms  -ccs -~ 'func {name~sj~@~.c}          # end string any case 4' File.C
+valid[0]: func=0  : SUCCESS
+valid[1]: name="File.C"
+#----------------------------------------------------------------------------
+# example 88: end any case same rxd
+getparms  -ccs -~ 'func {name~sj~@~".TXT"}      # end any case same rxd' file.TXT
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.TXT"
+#----------------------------------------------------------------------------
+# example 89: end any case diff rxd
+getparms  -ccs -~ 'func {name~sj~@~".TXT"}      # end any case diff rxd' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.txt"
+#----------------------------------------------------------------------------
+# example 90: end low case diff rxd
+getparms  -ccs -~ 'func {name~sj-@~".TXT"}      # end low case diff rxd' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.txt"
+#----------------------------------------------------------------------------
+# example 91: end of string any case
+getparms  -ccs -~ 'func {name~sj-@~".Txt"}      # end of string any case' file.txt
+valid[0]: func=0  : SUCCESS
+valid[1]: name="file.txt"
+#----------------------------------------------------------------------------
+# example 94: num part. mid non-#s
+getparms  -ccs -~ 'func name~i%~5~              # num part. mid non-#s' a5b
+valid[0]: func=0  : SUCCESS
+valid[1]: name=a5b
+#----------------------------------------------------------------------------
+# example 95: num exact mid non-#s
+getparms  -ccs -~ 'func name~i@~5~              # num exact mid non-#s' a5b
+valid[0]: func=0  : SUCCESS
+valid[1]: name=a5b
+#----------------------------------------------------------------------------
+# example 96: num class extraction
+getparms  -ccs -~ 'func {name~s%%[[:digit:]]+}  # num class extraction' ab7803cd
+valid[0]: func=0  : SUCCESS
+valid[1]: name="7803"
+#----------------------------------------------------------------------------
+# example 97: number class negation
+getparms  -ccs -~ 'func {name~s%%%[[:digit:]]+} # number class negation' ab7803cd
+valid[0]: func=0  : SUCCESS
+valid[1]: name="abcd"
+#----------------------------------------------------------------------------
+# TestMatches Examples End
+#----------------------------------------------------------------------------

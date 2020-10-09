@@ -1,0 +1,295 @@
+#----------------------------------------------------------------------------
+# TestVariety Examples Bgn [file: getparms.xvar.txt] [getparms ver. 1.0.4] [Max:45]
+#----------------------------------------------------------------------------
+# example 1 : OptParm-ReqOptn-OptParm and no EOBPM no EOOM
+getparms.sh -ccs -~ 'func {prm1}      -i      {prm2}' val1 -i
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: _i=1
+empty[0]: prm2=""
+#----------------------------------------------------------------------------
+# example 2 : OptParm-ReqOptn-OptParm and no EOBPM w/ EOOM
+getparms.sh -ccs -~ 'func {prm1}      -i {--} {prm2}' val1 -i
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: _i=1
+empty[0]: __=0
+empty[0]: prm2=""
+#----------------------------------------------------------------------------
+# example 3 : OptParm-ReqOptn-OptParm and w/ EOBPM w/ EOOM
+getparms.sh -ccs -~ 'func {prm1} {-+} -i {--} {prm2}' val1 -i
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+empty[0]: __plus=0
+valid[1]: _i=1
+empty[0]: __=0
+empty[0]: prm2=""
+#----------------------------------------------------------------------------
+# example 4 : OptParm-ReqOptn-OptParm and rx EOBPM no EOOM
+getparms.sh -ccs -~ 'func {prm1}      -i      {prm2}' val1 -+ -i
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: _i=1
+empty[0]: prm2=""
+#----------------------------------------------------------------------------
+# example 5 : OptParm-ReqOptn-OptParm and w/ EOBPM rx EBPM
+getparms.sh -ccs -~ 'func {prm1} {-+} -i {--} {prm2}' -+ val1 -i --
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: __plus=1
+valid[1]: _i=1
+valid[1]: __=1
+valid[1]: prm2="val1"
+#----------------------------------------------------------------------------
+# example 6 : When all items after bgn parm required pt. a
+getparms.sh -ccs -~ 'func {prm1} prm2 -i prm3' val1 -i val2
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 7 : When all items after bgn parm required pt. b
+getparms.sh -ccs -~ 'func {prm1} prm2 -i prm3' val1 -i val2
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 8 : When any optional items after bgn parm pt. a
+getparms.sh -ccs -~ 'func {prm1} prm2 {-i} {prm3}' val1 -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: prm2="-i"
+empty[0]: _i=0
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 9 : When any optional items after bgn parm pt. b
+getparms.sh -ccs -~ 'func {prm1} prm2 {-i} {prm3}' val1 -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: prm2="-i"
+empty[0]: _i=0
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 10: Solved with an end of bgn parms marker pt. a
+getparms.sh -ccs -~ 'func {prm1} prm2 {-i} {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 11: Solved with an end of bgn parms marker pt. b
+getparms.sh -ccs -~ 'func {prm1} prm2 {-i} {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 12: Solved with an end of bgn parms marker pt. a
+getparms.sh -ccs -~ 'func {prm1} prm2  -i  {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 13: Solved with an end of bgn parms marker pt. b
+getparms.sh -ccs -~ 'func {prm1} prm2  -i  {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+empty[0]: prm1=""
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 14: Spec'ed & rcvd end of bgn parms marker pt. a
+getparms.sh -ccs -~ 'func {prm1} -+ prm2  -i  {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: __plus=1
+valid[1]: prm2="val2"
+valid[1]: _i=1
+empty[0]: prm3=""
+#----------------------------------------------------------------------------
+# example 15: Spec'ed & rcvd end of bgn parms marker pt. b
+getparms.sh -ccs -~ 'func {prm1} -+ prm2  -i  {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: __plus=1
+valid[1]: prm2="val2"
+valid[1]: _i=1
+empty[0]: prm3=""
+#----------------------------------------------------------------------------
+# example 16: Spec'ed & rcvd end of bgn w/ reqd prm3 pt. a
+getparms.sh -ccs -~ 'func {prm1} -+ prm2  -i  {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: __plus=1
+valid[1]: prm2="val2"
+valid[1]: _i=1
+empty[0]: prm3=""
+#----------------------------------------------------------------------------
+# example 17: Spec'ed & rcvd end of bgn w/ reqd prm3 pt. b
+getparms.sh -ccs -~ 'func {prm1} -+ prm2  -i  {prm3}' val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val1"
+valid[1]: __plus=1
+valid[1]: prm2="val2"
+valid[1]: _i=1
+empty[0]: prm3=""
+#----------------------------------------------------------------------------
+# example 18: Only rcvd end of bgn parms & reqd prm3 pt. a
+getparms.sh -ccs -~ 'func {prm1}    prm2  -i  {prm3}' val0 val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val0"
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 19: Only rcvd end of bgn parms & reqd prm3 pt. b
+getparms.sh -ccs -~ 'func {prm1}    prm2  -i  {prm3}' val0 val1 -+ -i val2
+valid[0]: func=0  : SUCCESS
+valid[1]: prm1="val0"
+valid[1]: prm2="val1"
+valid[1]: _i=1
+valid[1]: prm3="val2"
+#----------------------------------------------------------------------------
+# example 20: OR'ed mixed parm unfilled w/ option received
+getparms.sh -ccs -~ 'func -j m|-i|--input {post}' -j val -i
+valid[0]: func=0  : SUCCESS
+valid[1]: _j=1
+empty[0]: m=""
+valid[1]: _i=1
+empty[0]: __input=0
+valid[1]: post="val"
+#----------------------------------------------------------------------------
+# example 21: SHIP item with only plus-sign option allowed
+getparms.sh -cl -~ 'func {-d=+}' -d+
+func=0  : SUCCESS
+d=+
+#----------------------------------------------------------------------------
+# example 22: SHIP item with only minussign option allowed
+getparms.sh -cl -~ 'func {-d=-}' -d-
+func=0  : SUCCESS
+d=-
+#----------------------------------------------------------------------------
+# example 23: SHIP item with only plusminus option allowed
+getparms.sh -cl -~ 'func {-d=+-}' -d+
+func=0  : SUCCESS
+d=+
+#----------------------------------------------------------------------------
+# example 24: SHIP item with only minussign option allowed
+getparms.sh -cl -~ 'func {-d=+-}' -d-
+func=0  : SUCCESS
+d=-
+#----------------------------------------------------------------------------
+# example 25: SHIP item with the enumerated option allowed
+getparms.sh -cl -~ 'func {-d=,}' -d5,7
+func=0  : SUCCESS
+d=5,7
+#----------------------------------------------------------------------------
+# example 26: SHIP item with only the empty option allowed
+getparms.sh -cl -~ 'func {-d=0}' -d
+func=0  : SUCCESS
+d=""
+#----------------------------------------------------------------------------
+# example 27: SHIP item with only fractions option allowed
+getparms.sh -cl -~ 'func {-d=.}' -d5.5
+func=0  : SUCCESS
+d=5.5
+#----------------------------------------------------------------------------
+# example 28: SHIP item with only integers options allowed
+getparms.sh -cl -~ 'func {-d=1}' -d5
+func=0  : SUCCESS
+d=5
+#----------------------------------------------------------------------------
+# example 29: SHIP item with the num ranges option allowed
+getparms.sh -cl -~ 'func {-d=2}' -d5-7
+func=0  : SUCCESS
+d=5-7
+#----------------------------------------------------------------------------
+# example 30: SHIP item with 1 num fraction option allowed
+getparms.sh -cl -~ 'func {-d=1.}' -d2.5
+func=0  : SUCCESS
+d=2.5
+#----------------------------------------------------------------------------
+# example 31: SHIP item with the empty & +- option = empty
+getparms.sh -cl -~ 'func {-d=+-0}' -d
+func=0  : SUCCESS
+d=""
+#----------------------------------------------------------------------------
+# example 32: SHIP item with the empty & +- option = minus
+getparms.sh -cl -~ 'func {-d=+-0}' -d-
+func=0  : SUCCESS
+d=-
+#----------------------------------------------------------------------------
+# example 33: SHIP item with the empty & +- option = a plus
+getparms.sh -cl -~ 'func {-d=+-0}' -d+
+func=0  : SUCCESS
+d=+
+#----------------------------------------------------------------------------
+# example 34: SHIP item with a single & +- options = single
+getparms.sh -cl -~ 'func {-d=+-1}' -d4
+func=0  : SUCCESS
+d=4
+#----------------------------------------------------------------------------
+# example 35: SHIP item with a single & +- options = a plus
+getparms.sh -cl -~ 'func {-d=+-1}' -d+4
+func=0  : SUCCESS
+d=+4
+#----------------------------------------------------------------------------
+# example 36: SHIP item with a single & +- options = minus
+getparms.sh -cl -~ 'func {-d=+-1}' -d-4
+func=0  : SUCCESS
+d=-4
+#----------------------------------------------------------------------------
+# example 37: SHIP item with a range & a +- option = single
+getparms.sh -cl -~ 'func {-d=+-2}' -d-5-6
+func=0  : SUCCESS
+d=-5-6
+#----------------------------------------------------------------------------
+# example 38: SHIP item with a range & a +- option = a plus
+getparms.sh -cl -~ 'func {-d=+-2}' -d-5-+6
+func=0  : SUCCESS
+d=-5-+6
+#----------------------------------------------------------------------------
+# example 39: SHIP item with a range & a +- options = minus
+getparms.sh -cl -~ 'func {-d=+-2}' -d-5--2
+func=0  : SUCCESS
+d=-5--2
+#----------------------------------------------------------------------------
+# example 40: SHIP item with single & enumerated opt = bare
+getparms.sh -cl -~ 'func {-d=,1}' -d6
+func=0  : SUCCESS
+d=6
+#----------------------------------------------------------------------------
+# example 41: SHIP item with single & enumerated opt = rang
+getparms.sh -cl -~ 'func {-d=,1}' -d6,8
+func=0  : SUCCESS
+d=6,8
+#----------------------------------------------------------------------------
+# example 42: Pure opt w/ num w/ same letters as SHIP name 1
+getparms.sh  -~ 'func {-d5} {-d=}' -d5
+func=0  : SUCCESS
+_d5=1
+#----------------------------------------------------------------------------
+# example 43: Pure opt w/ num w/ same letters as SHIP name 2
+getparms.sh  -~ 'func {-d=} {-d5}' -d5
+func=0  : SUCCESS
+_d5=1
+#----------------------------------------------------------------------------
+# example 44: Pure opt w/ num w/ same letters as SHIP use = 1
+getparms.sh  -~ 'func {-d5} {-d=}' -d=5
+func=0  : SUCCESS
+_d=5
+#----------------------------------------------------------------------------
+# example 45: Pure opt w/ num w/ same letters as SHIP use = 2
+getparms.sh  -~ 'func {-d=} {-d5}' -d=5
+func=0  : SUCCESS
+_d=5
+#----------------------------------------------------------------------------
+# TestVariety Examples End
+#----------------------------------------------------------------------------

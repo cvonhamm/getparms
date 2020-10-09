@@ -1,0 +1,296 @@
+#----------------------------------------------------------------------------
+# TestConfigs Examples Bgn [file: getparms.xcfg.txt] [getparms ver. 1.0.4] [Max:40]
+#----------------------------------------------------------------------------
+# example 1 : -ca : Analyze only mode: only check specification not command-line items - Analysis Mode with no error
+getparms.sh -ca -~ 'func -i # no error' 
+ANALYZE=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 2 : -ca : Analyze only mode: only check specification not command-line items - Analysis Mode with an error
+getparms.sh -can -~ 'func -. # w/ error' 
+ANALYZE=9  : ILLFORM
+#----------------------------------------------------------------------------
+# example 3 : -cb : Beginning processing result to be shown for all specification rows - Begin Spec display a header
+getparms.sh -cb -~ 'func # verify hdr' 
+SpecLine: func
+optn[00]: func  "-h|--help"        [hlp][hlp]
+RxdInput: 
+func=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 4 : -cb : Beginning processing result to be shown for all specification rows - Begin Spec display function
+getparms.sh -cb -~ 'func # verify func' 
+SpecLine: func
+optn[00]: func  "-h|--help"        [hlp][hlp]
+RxdInput: 
+func=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 5 : -cb : Beginning processing result to be shown for all specification rows - Begin Spec display optional
+getparms.sh -cb -~ 'func {parm} # optn parm' 
+SpecLine: func {parm}
+optn[00]: func  "-h|--help"        [hlp][hlp]
+optn[01]: parm  ""                 [bgn][prm]
+RxdInput: 
+func=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 6 : -cb : Beginning processing result to be shown for all specification rows - Begin Spec display required
+getparms.sh -cb -~ 'func  parm  # reqd parm' parm
+SpecLine: func  parm 
+optn[00]: func  "-h|--help"        [hlp][hlp]
+reqd[01]: parm  ""                 [bgn][prm]
+RxdInput: 1: parm 
+func=0  : SUCCESS
+parm="parm"
+#----------------------------------------------------------------------------
+# example 7 : -cc : Capture statuses of command-line items even if item is not changed - Unchanged parm status shown
+getparms.sh -cc -~ 'func {parm} # unchanged param' 
+func=0  : SUCCESS
+parm=""
+#----------------------------------------------------------------------------
+# example 8 : -cc : Capture statuses of command-line items even if item is not changed - Unchanged optn status shown
+getparms.sh -cc -~ 'func {-i} # unchanged option' 
+func=0  : SUCCESS
+_i=0
+#----------------------------------------------------------------------------
+# example 9 : -cc : Capture statuses of command-line items even if item is not changed - Unchanged SHIP status shown
+getparms.sh -cc -~ 'func {-i=} # unchanged SHIP' 
+func=0  : SUCCESS
+_i=""
+#----------------------------------------------------------------------------
+# example 10: -cc : Capture statuses of command-line items even if item is not changed - Unchanged indp parm capture
+getparms.sh -cc -~ 'func {-i=prm} # unchanged indp parm' 
+func=0  : SUCCESS
+_i=0
+prm=""
+#----------------------------------------------------------------------------
+# example 11: -cc : Capture statuses of command-line items even if item is not changed - Unchanged indp optn capture
+getparms.sh -cc -~ 'func {-i=prm} # unchanged indp optn' 
+func=0  : SUCCESS
+_i=0
+prm=""
+#----------------------------------------------------------------------------
+# example 12: -ce : Suppress all extra empty lines added just for beautifying displays - Verify are no extra returns
+getparms.sh -ce -~ 'func {-i} # no extra returns' 
+func=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 13: -ce : Suppress all extra empty lines added just for beautifying displays - Verify the carriage returns
+getparms.sh  -~ 'func {-i} # w/ extra returns (not shown)' 
+func=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 14: -ch : Help message is suppressed on getting a help option or if no input - Show no Help w/ empty lines
+getparms.sh -ch 
+#----------------------------------------------------------------------------
+# example 15: -ch : Help message is suppressed on getting a help option or if no input - Show no Help w/ help option
+getparms.sh -ch -h
+#----------------------------------------------------------------------------
+# example 16: -cl : Leading underscores from any dashed item's output name are removed - Remove leading _ with optns
+getparms.sh -cl -~ 'func -i # pure optn' -i
+func=0  : SUCCESS
+i=1
+#----------------------------------------------------------------------------
+# example 17: -cl : Leading underscores from any dashed item's output name are removed - Remove leading _ with SHIPs
+getparms.sh -cl -~ 'func -i= # SHIP opt' -i=
+func=0  : SUCCESS
+i=""
+#----------------------------------------------------------------------------
+# example 18: -cl : Leading underscores from any dashed item's output name are removed - Remove leading _ ind option
+getparms.sh -cl -~ 'func -i=parm # ind parm' -i parm
+func=0  : SUCCESS
+i=1
+parm="parm"
+#----------------------------------------------------------------------------
+# example 19: -cn : No error messages will be outputted [i.e. operate in a quiet mode] - No error message req option
+getparms.sh -cn -~ 'func -i # more info' 
+func=2  : UNFOUND
+#----------------------------------------------------------------------------
+# example 20: -cq : Suppress output messages except for result (fnam=0) [a quiet mode] - Hide output all rcvd. items
+getparms.sh -cq -~ 'func parm # more info' valu
+func=0  : SUCCESS
+#----------------------------------------------------------------------------
+# example 21: -cr : Row numbers (0-based) are to be prefixed to each row that's output - Show row nums for all optns
+getparms.sh -cr -~ 'func -i # more info' -i
+ 0:- func=0  : SUCCESS
+ 1:0 _i=1
+#----------------------------------------------------------------------------
+# example 22: -cr : Row numbers (0-based) are to be prefixed to each row that's output - Show row options diff order
+getparms.sh -cr -~ 'func -i -j parm # more info' 5 -j -i
+ 0:- func=0  : SUCCESS
+ 1:2 _i=1
+ 2:1 _j=1
+ 3:0 parm="5"
+#----------------------------------------------------------------------------
+# example 23: -cs : Status of displayed command-line items to be prefixed for each row - Item's status rcvd is valid
+getparms.sh -cs -~ 'func parm # received = valid' valu
+valid[0]: func=0  : SUCCESS
+valid[1]: parm="valu"
+#----------------------------------------------------------------------------
+# example 24: -cs : Status of displayed command-line items to be prefixed for each row - Item's status rcvd is empty
+getparms.sh -cs -cc -~ 'func {-i} # not rcvd = empty' 
+valid[0]: func=0  : SUCCESS
+empty[0]: _i=0
+#----------------------------------------------------------------------------
+# example 25: -cs : Status of displayed command-line items to be prefixed for each row - Item's status item missing 
+getparms.sh -cs -cc -~ 'func -i # not rcvd = misin' 
+valid[0]: func=2  : UNFOUND
+misin[0]: _i=0
+#----------------------------------------------------------------------------
+# example 26: -cs : Status of displayed command-line items to be prefixed for each row - Item's status rcvd invalids
+getparms.sh -cs -~ 'func -i= # received = bad value' -ia
+valid[0]: func=9  : ILLFORM
+invld[1]: _i="a"
+#----------------------------------------------------------------------------
+# example 27: -cs : Status of displayed command-line items to be prefixed for each row - Item's status rcvd multiple
+getparms.sh -cs -~ 'func -i parm # received = too many' -i valu -i
+valid[0]: func=5  : TOOMANY
+multi[2]: _i=2
+valid[1]: parm="valu"
+#----------------------------------------------------------------------------
+# example 28: -cu : User message text is added to output: -cu{=| }'user supplied text' - Show user message as quoted
+getparms.sh -cu '"quoted user message"' -~ 'func {-i} parm # quoted user message' valu
+"quoted user message"
+func=0  : SUCCESS
+parm="valu"
+#----------------------------------------------------------------------------
+# example 29: -cu : User message text is added to output: -cu{=| }'user supplied text' - Show user message unquoted 
+getparms.sh -cu 'unquoted user message' -~ 'func {-i} parm # unquoted user message' valu
+unquoted user message
+func=0  : SUCCESS
+parm="valu"
+#----------------------------------------------------------------------------
+# example 30: -cu : User message text is added to output: -cu{=| }'user supplied text' - Show user message w/ equals
+getparms.sh -cu='a user message' -~ 'func {-i} parm # equals before msg' valu
+'a user message'
+func=0  : SUCCESS
+parm="valu"
+#----------------------------------------------------------------------------
+# example 31: -cu : User message text is added to output: -cu{=| }'user supplied text' - Show user message abuts opt
+getparms.sh -cu'a user message' -~ 'func {-i} parm # option abuts msg' valu
+'a user message'
+func=0  : SUCCESS
+parm="valu"
+#----------------------------------------------------------------------------
+# example 32: -cu : User message text is added to output: -cu{=| }'user supplied text' - Show effect of wrapped line
+getparms.sh -cbrs -on -cu 'Wrap Enabled (default)' -~ 'func <file_txt~sj+-%~.Txt> -v:verb|m~h|--verb {-in}  \
+{-io} -i {-j} [-m=ind_parm] -e <-f|--files ifile tfile ofile> {--} <param1~ip> [param2 param3~sw-]' file.txt  \
+0x3A  -ji -ion -e --files in.txt tmp.txt out.txt 12 "all In" "all on"
+SpecLine: func <file_txt~sj+-%~.Txt> -v:verb|m~h|--verb {-in} {-io} 
+-i {-j} [-m=ind_parm] -e <-f|--files ifile tfile ofile> {--} 
+<param1~ip> [param2 param3~sw-]
+ 0 optn[00]: func      "-h|--help"        [hlp][hlp]
+ 1 reqd[01]: file_txt  ""                 [bgn][prm][~sj+-%~.Txt][regx]
+ 2 optn[02]: verb      "-v"          2:01|[mix][opt]
+ 3 optn[02]: m         ""            2:02|[mix][prm][~h]
+ 4 optn[02]: __verb    "--verb"      2:03|[mix][opt]
+ 5 optn[03]: _in       "-in"              [opt][opt]
+ 6 optn[04]: _io       "-io"              [opt][opt]
+ 7 optn[05]: _i        "-i"               [opt][opt]
+ 8 optn[06]: _j        "-j"               [opt][opt]
+ 9 optn[07]: _m        "-m"         10:01=[osi][opt]
+10 optn[07]: ind_parm  ""           10:02=[osi][prm]
+11 optn[08]: _e        "-e"               [opt][opt]
+12 reqd[09]: _f        "-f"         14:01:[ind][opt]
+13 reqd[09]: __files   "--files"    14:02:[ind][opt]
+14 reqd[09]: ifile     ""           14:03:[ind][prm]
+15 reqd[09]: tfile     ""           14:04:[ind][prm]
+16 reqd[09]: ofile     ""           14:05:[ind][prm]
+17 optn[10]: __        "--"               [eom][eom]
+18 reqd[11]: param1    ""                 [end][prm][~ip]
+19 optn[12]: param2    ""                 [end][prm]
+20 optn[12]: param3    ""                 [end][prm][~sw-]
+RxdInput: 14: file.txt 0x3A -ji -ion -e --files in.txt tmp.txt out.txt 12 "all In" "all on" 
+Wrap Enabled (default)
+ 0:-  valid[0]: func=0  : SUCCESS
+ 1:0  valid[1]: file_txt="file.txt"
+ 3:1  valid[1]: m=0x3A
+ 5:3  valid[1]: _in=1
+ 6:3  valid[1]: _io=1
+ 7:2  valid[1]: _i=1
+ 8:2  valid[1]: _j=1
+11:4  valid[1]: _e=1
+13:5  valid[1]: __files=1
+14:6  valid[1]: ifile="in.txt"
+15:7  valid[1]: tfile="tmp.txt"
+16:8  valid[1]: ofile="out.txt"
+18:9  valid[1]: param1=12
+19:10 valid[1]: param2="all In"
+20:11 valid[1]: param3="all on"
+#----------------------------------------------------------------------------
+# example 33: -cw : Disable auto-Wrapping of long lines (e.g.: SpecLine or HELP lines) - Show effect no wrapped line
+getparms.sh -cbrs -on -cw -~ 'func <file_txt~sj+-%~.Txt> -v:verb|m~h|--verb {-in} {-io} -i {-j} [-m=ind_parm]  \
+-e <-f|--files ifile tfile ofile> {--} <param1~ip> [param2 param3~sw-]' file.txt 0x3A  -ji -ion -e --files  \
+in.txt tmp.txt out.txt 12 "all In" "all on"
+SpecLine: func <file_txt~sj+-%~.Txt> -v:verb|m~h|--verb {-in} {-io} -i {-j} [-m=ind_parm] -e <-f|--files ifile tfile ofile> {--} <param1~ip> [param2 param3~sw-]
+ 0 optn[00]: func      "-h|--help"        [hlp][hlp]
+ 1 reqd[01]: file_txt  ""                 [bgn][prm][~sj+-%~.Txt][regx]
+ 2 optn[02]: verb      "-v"          2:01|[mix][opt]
+ 3 optn[02]: m         ""            2:02|[mix][prm][~h]
+ 4 optn[02]: __verb    "--verb"      2:03|[mix][opt]
+ 5 optn[03]: _in       "-in"              [opt][opt]
+ 6 optn[04]: _io       "-io"              [opt][opt]
+ 7 optn[05]: _i        "-i"               [opt][opt]
+ 8 optn[06]: _j        "-j"               [opt][opt]
+ 9 optn[07]: _m        "-m"         10:01=[osi][opt]
+10 optn[07]: ind_parm  ""           10:02=[osi][prm]
+11 optn[08]: _e        "-e"               [opt][opt]
+12 reqd[09]: _f        "-f"         14:01:[ind][opt]
+13 reqd[09]: __files   "--files"    14:02:[ind][opt]
+14 reqd[09]: ifile     ""           14:03:[ind][prm]
+15 reqd[09]: tfile     ""           14:04:[ind][prm]
+16 reqd[09]: ofile     ""           14:05:[ind][prm]
+17 optn[10]: __        "--"               [eom][eom]
+18 reqd[11]: param1    ""                 [end][prm][~ip]
+19 optn[12]: param2    ""                 [end][prm]
+20 optn[12]: param3    ""                 [end][prm][~sw-]
+RxdInput: 14: file.txt 0x3A -ji -ion -e --files in.txt tmp.txt out.txt 12 "all In" "all on" 
+ 0:-  valid[0]: func=0  : SUCCESS
+ 1:0  valid[1]: file_txt="file.txt"
+ 3:1  valid[1]: m=0x3A
+ 5:3  valid[1]: _in=1
+ 6:3  valid[1]: _io=1
+ 7:2  valid[1]: _i=1
+ 8:2  valid[1]: _j=1
+11:4  valid[1]: _e=1
+13:5  valid[1]: __files=1
+14:6  valid[1]: ifile="in.txt"
+15:7  valid[1]: tfile="tmp.txt"
+16:8  valid[1]: ofile="out.txt"
+18:9  valid[1]: param1=12
+19:10 valid[1]: param2="all In"
+20:11 valid[1]: param3="all on"
+#----------------------------------------------------------------------------
+# example 34: -cd : Disable errors on duplicates of same: opt, ind parm, SHIP received - Suppress duplicate err pure
+getparms.sh -cd -~ 'func -i # received = multiple pure' -i -i -i
+func=0  : SUCCESS
+_i=3
+#----------------------------------------------------------------------------
+# example 35: -cd : Disable errors on duplicates of same: opt, ind parm, SHIP received - Suppress duplicate err indp
+getparms.sh -cd -~ 'func -i=parm # received = multiple indp' -i prm1 -i prm2
+func=0  : SUCCESS
+_i=2
+parm="prm1=prm2"
+#----------------------------------------------------------------------------
+# example 36: -cd : Disable errors on duplicates of same: opt, ind parm, SHIP received - Suppress duplicate err SHIP
+getparms.sh -cd -~ 'func -i= # received = multiple SHIP' -i5 -i6
+func=0  : SUCCESS
+_i=5=6
+#----------------------------------------------------------------------------
+# example 37: -ci : Disable old style Ind Parm assignments, warn if -i=val in cmd-line - Disable old style indp cmdl
+getparms.sh -ci -~ 'func {-i=parm} # more info' -i=val
+func=7  : UNSUPPT
+_i=1
+parm="val"
+#----------------------------------------------------------------------------
+# example 38: -cx : Disable the use of location symbols for regex matching|extractions - Put last status into a file
+getparms.sh -cx -~ 'func parm~s%%.txt~ # more info' file.txt~
+func=0  : SUCCESS
+parm=".txt~"
+#----------------------------------------------------------------------------
+# example 39: -cy : Save result of running getparms into file for later retrieval (-r) - Put last status into a file
+getparms.sh -cy -~ 'func -i # more info' -i
+func=0  : SUCCESS
+_i=1
+#----------------------------------------------------------------------------
+# example 40: -cy : Save result of running getparms into file for later retrieval (-r) - Get last status from a file
+getparms.sh -r func 
+func=0
+#----------------------------------------------------------------------------
+# TestConfigs Examples End
+#----------------------------------------------------------------------------

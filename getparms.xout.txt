@@ -1,0 +1,393 @@
+#----------------------------------------------------------------------------
+# TestOutputs Examples Bgn [file: getparms.xout.txt] [getparms ver. 1.0.4] [Max:14]
+#_XMPL1_BGN
+#----------------------------------------------------------------------------
+# Test 01. Show the most verbose output with all debugging outputs enabled
+# then we will decrease output more and more concisely by changing configs
+#----------------------------------------------------------------------------
+HLPE='func <f_txt~s%~.txt> -v:verb|m~s-|--verb  -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -d -on -cbcrsw -~ "$HLPE" file.txt happy -ji --files "in.txt" tmp.txt out.txt 12 "all in" "all On";
+
+SpecLine: func <f_txt~s%~.txt> -v:verb|m~s-|--verb  -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]
+ 0 optn[00]: func     "-h|--help"        [hlp][hlp]
+ 1 reqd[01]: f_txt    ""                 [bgn][prm][~s%~.txt][regx]
+ 2 optn[02]: verb     "-v"          2:01|[mix][opt]
+ 3 optn[02]: m        ""            2:02|[mix][prm][~s-]
+ 4 optn[02]: __verb   "--verb"      2:03|[mix][opt]
+ 5 optn[03]: _i       "-i"               [opt][opt]
+ 6 optn[04]: _j       "-j"               [opt][opt]
+ 7 optn[05]: _m       "-m"          8:01=[osi][opt]
+ 8 optn[05]: indp     ""            8:02=[osi][prm]
+ 9 optn[06]: _e       "-e"               [opt][opt]
+10 reqd[07]: _f       "-f"         12:01:[ind][opt]
+11 reqd[07]: __files  "--files"    12:02:[ind][opt]
+12 reqd[07]: ifil     ""           12:03:[ind][prm]
+13 reqd[07]: tfil     ""           12:04:[ind][prm]
+14 reqd[07]: ofil     ""           12:05:[ind][prm]
+15 optn[08]: __       "--"               [eom][eom]
+16 reqd[09]: prm1     ""                 [end][prm][~ip]
+17 optn[10]: prm2     ""                 [end][prm][~sw-]
+18 optn[10]: prm3     ""                 [end][prm]
+
+ItemIndex:  1 | 2 4 5 6 7 9 10 11 15 | 8 12 13 14 | 3 16 17 18 (3)
+ItemNames: [f_txt][-v --verb -i -j -m -e -f --files --][indp ifil tfil ofil][m prm1 prm2 prm3] (m)
+ItemCount: BgnPrm[1]|Opts[9]|Indp[4]|EndPrm[4]|Hidp[1]
+ReqdItems: ReqPrm[2]|RemReqPrm[2]|RemReqBgn[1]|RemReqEnd[1]|RemReqOpt[4]|EndBgn|Opt:~2|~13
+OptlItems: 3[3]|NumRxdOpt[0]
+SinglOpts: 2 5 6 9 [ -v -i -j -e ] IndOp [ --verb -m -f --files ]
+
+Configure:
+NoLmt=' ': ' ' items optional (option: -on)
+DlmtrReqd: 'n|s|p|a|c' [ NoLmt Sqare Paran Angle Curly ] are ''[]()<>{} reqd: 00010
+CF_BGNSPC: Beginning processing result to be shown for all specification rows [-cb] 
+CF_CAPALL: Capture statuses of command-line items even if item is not changed [-cc] 
+CF_ROWNUM: Row numbers (0-based) are to be prefixed to each row that's output [-cr] 
+CF_STATUS: Status of displayed command-line items to be prefixed for each row [-cs] 
+CF_NOWRAP: Disable auto-Wrapping of long lines (e.g.: SpecLine or HELP lines) [-cw] 
+
+RxdInput: 10: file.txt happy -ji --files in.txt tmp.txt out.txt 12 all in all On 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: f_txt="file.txt"
+ 2:- empty[0]: verb=0
+ 3:1 valid[1]: m="happy"
+ 4:- empty[0]: __verb=0
+ 5:2 valid[1]: _i=1
+ 6:2 valid[1]: _j=1
+ 7:- empty[0]: _m=0
+ 8:- empty[0]: indp=""
+ 9:- empty[0]: _e=0
+10:- empty[0]: _f=0
+11:3 valid[1]: __files=1
+12:4 valid[1]: ifil="in.txt"
+13:5 valid[1]: tfil="tmp.txt"
+14:6 valid[1]: ofil="out.txt"
+15:- empty[0]: __=0
+16:7 valid[1]: prm1=12
+17:8 valid[1]: prm2="all in"
+18:9 valid[1]: prm3="all On"
+
+PPID=424
+
+#_XMPL1_END
+#_XMPL2_BGN
+#----------------------------------------------------------------------------
+# Test 02. Remove debug flag & see the intermediate debug info was removed
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -on -cbcrsw -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+SpecLine: func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]
+ 0 optn[00]: func     "-h|--help"        [hlp][hlp]
+ 1 reqd[01]: f_txt    ""                 [bgn][prm][~s%~.txt][regx]
+ 2 optn[02]: verb     "-v"          2:01|[mix][opt]
+ 3 optn[02]: m        ""            2:02|[mix][prm][~sw-]
+ 4 optn[02]: __verb   "--verb"      2:03|[mix][opt]
+ 5 optn[03]: _i       "-i"               [opt][opt]
+ 6 optn[04]: _j       "-j"               [opt][opt]
+ 7 optn[05]: _m       "-m"          8:01=[osi][opt]
+ 8 optn[05]: indp     ""            8:02=[osi][prm]
+ 9 optn[06]: _e       "-e"               [opt][opt]
+10 reqd[07]: _f       "-f"         12:01:[ind][opt]
+11 reqd[07]: __files  "--files"    12:02:[ind][opt]
+12 reqd[07]: ifil     ""           12:03:[ind][prm]
+13 reqd[07]: tfil     ""           12:04:[ind][prm]
+14 reqd[07]: ofil     ""           12:05:[ind][prm]
+15 optn[08]: __       "--"               [eom][eom]
+16 reqd[09]: prm1     ""                 [end][prm][~ip]
+17 optn[10]: prm2     ""                 [end][prm][~sw-]
+18 optn[10]: prm3     ""                 [end][prm]
+
+RxdInput: 10: file.txt happy -ji --files in.txt tmp.txt out.txt 12 all in all On 
+ 0:- valid[0]: func=0  : SUCCESS
+ 1:0 valid[1]: f_txt="file.txt"
+ 2:- empty[0]: verb=0
+ 3:1 valid[1]: m="happy"
+ 4:- empty[0]: __verb=0
+ 5:2 valid[1]: _i=1
+ 6:2 valid[1]: _j=1
+ 7:- empty[0]: _m=0
+ 8:- empty[0]: indp=""
+ 9:- empty[0]: _e=0
+10:- empty[0]: _f=0
+11:3 valid[1]: __files=1
+12:4 valid[1]: ifil="in.txt"
+13:5 valid[1]: tfil="tmp.txt"
+14:6 valid[1]: ofil="out.txt"
+15:- empty[0]: __=0
+16:7 valid[1]: prm1=12
+17:8 valid[1]: prm2="all in"
+18:9 valid[1]: prm3="all On"
+
+#_XMPL2_END
+#_XMPL3_BGN
+#----------------------------------------------------------------------------
+# Test 03. Remove include row nums option (-cr) to drop leading row number
+# also any Leading underscores from dashed items' output names are dropped
+# & see the collision of the alt. name for -v with default name for --verb
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -on -cbclsw -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+SpecLine: func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]
+optn[00]: func   "-h|--help"        [hlp][hlp]
+reqd[01]: f_txt  ""                 [bgn][prm][~s%~.txt][regx]
+optn[02]: verb   "-v"          2:01|[mix][opt]
+optn[02]: m      ""            2:02|[mix][prm][~sw-]
+optn[02]: verb   "--verb"      2:03|[mix][opt]
+optn[03]: i      "-i"               [opt][opt]
+optn[04]: j      "-j"               [opt][opt]
+optn[05]: m      "-m"          8:01=[osi][opt]
+optn[05]: indp   ""            8:02=[osi][prm]
+optn[06]: e      "-e"               [opt][opt]
+reqd[07]: f      "-f"         12:01:[ind][opt]
+reqd[07]: files  "--files"    12:02:[ind][opt]
+reqd[07]: ifil   ""           12:03:[ind][prm]
+reqd[07]: tfil   ""           12:04:[ind][prm]
+reqd[07]: ofil   ""           12:05:[ind][prm]
+optn[08]: __     "--"               [eom][eom]
+reqd[09]: prm1   ""                 [end][prm][~ip]
+optn[10]: prm2   ""                 [end][prm][~sw-]
+optn[10]: prm3   ""                 [end][prm]
+
+Warn_Msgs: 1 
+03 [MULP]: Multiple output names are same: m @ 3 & 7
+
+RxdInput: 10: file.txt happy -ji --files in.txt tmp.txt out.txt 12 all in all On 
+valid[0]: func=3  : FOUNDIT
+valid[1]: f_txt="file.txt"
+empty[0]: verb=0
+valid[1]: m="happy"
+empty[0]: verb=0
+valid[1]: i=1
+valid[1]: j=1
+empty[0]: m=0
+empty[0]: indp=""
+empty[0]: e=0
+empty[0]: f=0
+valid[1]: files=1
+valid[1]: ifil="in.txt"
+valid[1]: tfil="tmp.txt"
+valid[1]: ofil="out.txt"
+empty[0]: __=0
+valid[1]: prm1=12
+valid[1]: prm2="all in"
+valid[1]: prm3="all On"
+
+#_XMPL3_END
+#_XMPL4_BGN
+#----------------------------------------------------------------------------
+# Test 04. Remove show starting processing (-cb) & Specified block is gone
+# Restore Leading underscores in option output names to remove a collision
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -on -ccsw -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+valid[0]: func=0  : SUCCESS
+valid[1]: f_txt="file.txt"
+empty[0]: verb=0
+valid[1]: m="happy"
+empty[0]: __verb=0
+valid[1]: _i=1
+valid[1]: _j=1
+empty[0]: _m=0
+empty[0]: indp=""
+empty[0]: _e=0
+empty[0]: _f=0
+valid[1]: __files=1
+valid[1]: ifil="in.txt"
+valid[1]: tfil="tmp.txt"
+valid[1]: ofil="out.txt"
+empty[0]: __=0
+valid[1]: prm1=12
+valid[1]: prm2="all in"
+valid[1]: prm3="all On"
+
+#_XMPL4_END
+#_XMPL5_BGN
+#----------------------------------------------------------------------------
+# Test 05. Remove show output status of received command-line items (-cs)
+# causes leading status of each output row (e.g.: valid[1]: ) to be removed
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -ccw -on -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+func=0  : SUCCESS
+f_txt="file.txt"
+verb=0
+m="happy"
+__verb=0
+_i=1
+_j=1
+_m=0
+indp=""
+_e=0
+_f=0
+__files=1
+ifil="in.txt"
+tfil="tmp.txt"
+ofil="out.txt"
+__=0
+prm1=12
+prm2="all in"
+prm3="all On"
+
+#_XMPL5_END
+#_XMPL6_BGN
+#----------------------------------------------------------------------------
+# Test 06. Remove capture all command-line items, even if unchanged (-cc)
+# causes all the rows that have not been received to be removed (e.g.: __)
+# this without any errors is the least verbose mode available ('-co'|none)
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -on -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+func=0  : SUCCESS
+f_txt="file.txt"
+m="happy"
+_i=1
+_j=1
+__files=1
+ifil="in.txt"
+tfil="tmp.txt"
+ofil="out.txt"
+prm1=12
+prm2="all in"
+prm3="all On"
+
+#_XMPL6_END
+#_XMPL7_BGN
+#----------------------------------------------------------------------------
+# Test 07. Remove all received output status (-cq) only show func return
+# Note: all received items are no longer printed and thus can't be known
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -cq -on -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+func=0  : SUCCESS
+
+#_XMPL7_END
+#_XMPL8_BGN
+#----------------------------------------------------------------------------
+# Test 08. Add show output even if unchanged (-cc) overriding -cq option
+# Note: all received items are now printed, ignoring the quiet config opt
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -ccq -on -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+func=0  : SUCCESS
+f_txt="file.txt"
+verb=0
+m="happy"
+__verb=0
+_i=1
+_j=1
+_m=0
+indp=""
+_e=0
+_f=0
+__files=1
+ifil="in.txt"
+tfil="tmp.txt"
+ofil="out.txt"
+__=0
+prm1=12
+prm2="all in"
+prm3="all On"
+
+#_XMPL8_END
+#_XMPL9_BGN
+#----------------------------------------------------------------------------
+# Test 09. Unique output with multiple ind parms in same output variable
+# Notice _i & parm both show their statuses as 'multi' & parm='f1=f2=f3'
+# Not flagged as errors only because suppress errors on duplicates (-cd)
+#----------------------------------------------------------------------------
+HLPM='func -i <-f=parm> multi ... # more info'
+getparms -crswd -on -~ "$HLPM" -i -f f1 -i -f f2 -f f3 val1 val2;
+
+ 0:-     valid[0]: func=0  : SUCCESS
+ 1:0,3   multi[2]: _i=2
+ 2:1,4,6 multi[3]: _f=3
+ 3:2,5,7 multi[3]: parm="f1=f2=f3"
+ 4:8     valid[1]: multi_1="val1"
+ 5:9     valid[1]: multi_2="val2"
+
+#_XMPL9_END
+#_XMPL10_BGN
+#----------------------------------------------------------------------------
+# Test 10. Remove the make items without delimiters be optional (no: -on)
+# i.e. -v|m|--verb are now required, causing an error [return FAILURE=2]
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -cw -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+ErrorMsgs: 1
+09 [REQD]: Required item was not received: -e @ 9
+
+func=2  : UNFOUND
+f_txt="file.txt"
+m="happy"
+_i=1
+_j=1
+__files=1
+ifil="in.txt"
+tfil="tmp.txt"
+ofil="out.txt"
+prm1=12
+prm2="all in"
+prm3="all On"
+
+#_XMPL10_END
+#_XMPL11_BGN
+#----------------------------------------------------------------------------
+# Test 11. Added suppress individual error messages (-cn) to remove error
+# messages so that only the function's result != 0 shows processing failed
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -cnw -~ "$HLPG" file.txt happy -ji --files in.txt tmp.txt out.txt 12 "all in" "all On";
+
+func=2  : UNFOUND
+f_txt="file.txt"
+m="happy"
+_i=1
+_j=1
+__files=1
+ifil="in.txt"
+tfil="tmp.txt"
+ofil="out.txt"
+prm1=12
+prm2="all in"
+prm3="all On"
+
+#_XMPL11_END
+#_XMPL12_BGN
+#----------------------------------------------------------------------------
+# Test 12. Following is Analysis output with no errors: SUCCESS=0 [no out]
+#----------------------------------------------------------------------------
+HLPG='func <f_txt~s%~.txt> -v:verb|m~sw-|--verb -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} <prm1~ip> [prm2~sw- prm3]'
+getparms -caw -~ "$HLPG" file.txt happy -ji -e --files in.txt tmp.txt out.txt 12 "all in" "all On";
+ANALYZE=0  : SUCCESS
+#_XMPL12_END
+#_XMPL13_BGN
+#----------------------------------------------------------------------------
+# Test 13. Analysis with spec error [FAILURE=8] & suppress all empty lines
+#----------------------------------------------------------------------------
+HLPB='func <f_txt~s%~.txt> -v:verb|m~s-|--verb  -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} {-l} <prm1~ip> [prm2~s- prm3]'
+getparms -ceaw -on -~ "$HLPB" file.txt happy -ji --files in.txt tmp.txt out.txt -- 12 "all in" "all On";
+Warn_Msgs: 1 
+16 [OADD]: No Options after a double dash: -l after 12
+ANALYZE=8  : MISORDR
+#_XMPL13_END
+#_XMPL14_BGN
+#----------------------------------------------------------------------------
+# Test 14. Analysis with spec error & errors suppressed [return FAILURE=8]
+#----------------------------------------------------------------------------
+HLPB='func <f_txt~s%~.txt> -v:verb|m~s-|--verb  -i {-j} [-m=indp] -e <-f|--files ifil tfil ofil> {--} {-l} <prm1~ip> [prm2~s- prm3]'
+getparms -canw -on -~ "$HLPB" file.txt happy -ji --files in.txt tmp.txt out.txt -- 12 "all in" "all On";
+ANALYZE=8  : MISORDR
+#_XMPL14_END
+#----------------------------------------------------------------------------
+# TestOutputs Examples End Overall SUCCESS
+#----------------------------------------------------------------------------
+
+# TestOutputs Examples End
+#----------------------------------------------------------------------------
